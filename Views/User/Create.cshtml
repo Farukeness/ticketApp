@@ -1,0 +1,21 @@
+@model CreateUserModel
+<form asp-action="Create" method="post">
+    <div class="text-danger" asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.Name"></label>
+        <input class="form-control" asp-for="@Model.Name" >
+    </div>
+    <div 
+        <label class="form-label" asp-for="Email"></label>
+        <input class="form-control" asp-for="Email" >
+    </div>
+    <div 
+        <label class="form-label" asp-for="@Model.Password"></label>
+        <input class="form-control" asp-for="@Model.Password" >
+    </div>
+    <div 
+        <label class="form-label" asp-for="@Model.ConfirmPassword"></label>
+        <input class="form-control" asp-for="@Model.ConfirmPassword" >
+    </div>
+    <button class="btn btn-primary" type="submit" >Kaydet</button>
+</form>
