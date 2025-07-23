@@ -22,9 +22,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Create">Kayıt Ol</a>
-                        </li>
+                        
                         @if (User.Identity.IsAuthenticated)
                             {
                                 <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
@@ -33,7 +31,11 @@
                             }
                             else
                             {
+                                <li class="nav-item">
+                                     <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Create">Kayıt Ol</a>
+                                </li>
                                 <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+                                
                             }
                     </ul>
                 </div>

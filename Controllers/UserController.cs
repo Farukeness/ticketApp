@@ -11,11 +11,12 @@ namespace ticketApp.Controllers
     {
 
         private UserManager<AppUser> _userManager;
-        
+        private RoleManager<AppRole> _roleManager;
 
-        public UserController(UserManager<AppUser> userManager)
+        public UserController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         public IActionResult Create()
         {
@@ -28,9 +29,12 @@ namespace ticketApp.Controllers
             {
                 var user = new AppUser { Email = model.Email, UserName = model.Name };
                 IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+                
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index","Home");
+                    await _userManager.AddToRoleAsync(user, "User");
+                    return RedirectToAction("Index", "Home");
+                    
                 }
                 foreach (IdentityError error in result.Errors)
                 {
