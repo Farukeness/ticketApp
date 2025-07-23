@@ -39,7 +39,12 @@ namespace ticketApp.Controllers
                     if (result.Succeeded)
                     {
                         
-                        return RedirectToAction("Index", "Home");
+                        var roles = await _userManager.GetRolesAsync(user);
+                        var rol = roles.FirstOrDefault();
+                        if (rol == "Admin"){return RedirectToAction("Index", "Admin");}
+                        if (rol == "Developer"){return RedirectToAction("Index", "Home");}
+                        if (rol == "User"){return RedirectToAction("Index", "Home");}
+                        
                     }
                     else
                     {

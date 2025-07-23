@@ -27,6 +27,10 @@ namespace ticketApp.Controllers
         {
             return View(_userManager.Users);
         }
+        public IActionResult Tickets()
+        {
+            return View();
+        }
 
         public async Task<IActionResult> Edit(string id)
         {
@@ -56,7 +60,6 @@ namespace ticketApp.Controllers
                     await _userManager.RemoveFromRolesAsync(user, currentRole);
                 if (model.SelectedRole != null)
                 await _userManager.AddToRoleAsync(user, model.SelectedRole);
-                Console.WriteLine("Gelen rol: " + model.SelectedRole);
                 return RedirectToAction("Index");}
                 
             }
