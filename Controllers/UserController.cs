@@ -11,6 +11,7 @@ namespace ticketApp.Controllers
     {
 
         private UserManager<AppUser> _userManager;
+        
 
         public UserController(UserManager<AppUser> userManager)
         {

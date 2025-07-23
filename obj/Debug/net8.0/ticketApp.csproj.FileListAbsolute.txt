@@ -174,3 +174,4 @@ C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\ne
 C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\obj\Debug\net8.0\ticketApp.sourcelink.json
