@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ticketApp.Data;
 
@@ -11,9 +12,11 @@ using ticketApp.Data;
 namespace ticketApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250723142744_AddTicketsAgainb")]
+    partial class AddTicketsAgainb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,9 +277,6 @@ namespace ticketApp.Migrations
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TicketsIdId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("datetime2");
 
@@ -286,7 +286,7 @@ namespace ticketApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TicketsIdId");
+                    b.HasIndex("TicketId");
 
                     b.HasIndex("UploadedByUserId");
 
@@ -429,9 +429,9 @@ namespace ticketApp.Migrations
 
             modelBuilder.Entity("ticketApp.Models.TicketAttachments", b =>
                 {
-                    b.HasOne("ticketApp.Models.Tickets", "TicketsId")
+                    b.HasOne("ticketApp.Models.Tickets", "Ticket")
                         .WithMany()
-                        .HasForeignKey("TicketsIdId")
+                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -443,7 +443,7 @@ namespace ticketApp.Migrations
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("TicketsId");
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("ticketApp.Models.TicketComments", b =>
@@ -452,7 +452,7 @@ namespace ticketApp.Migrations
                         .WithMany()
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("ticketApp.Models.Tickets", "TicketsID")
+                    b.HasOne("ticketApp.Models.Tickets", "Ticket")
                         .WithMany()
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -460,7 +460,7 @@ namespace ticketApp.Migrations
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("TicketsID");
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("ticketApp.Models.Tickets", b =>
