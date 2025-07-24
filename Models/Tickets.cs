@@ -13,14 +13,14 @@ namespace ticketApp.Models
         public TicketType ticketType { get; set; }
         public TicketPriority ticketPriority { get; set; }
         public TicketStatus ticketStatus { get; set; }
-        [Required]
+        
         public DateTime CreatedAt { get; set; }
 
 
-        [Required]
+        
         
         public string CreatedByUserId { get; set; } = string.Empty;
-        public AppUser CreatedByUser { get; set; } = null!;
+        public AppUser? CreatedByUser { get; set; } 
 
 
         public string? AssignedToUserId { get; set; }

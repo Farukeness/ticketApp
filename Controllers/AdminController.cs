@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ticketApp.Data;
 using ticketApp.Models;
 using ticketApp.ViewModel;
 
@@ -15,21 +17,35 @@ namespace ticketApp.Controllers
         private SignInManager<AppUser> _signInManager;
         private RoleManager<AppRole> _roleManager;
 
+        private readonly ApplicationDbContext _applicationDbContext;
+
+
         public AdminController(UserManager<AppUser> userManager,
          SignInManager<AppUser> signInManager,
-         RoleManager<AppRole> roleManager)
+         RoleManager<AppRole> roleManager,
+         ApplicationDbContext applicationDbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _applicationDbContext = applicationDbContext;
         }
+        
         public IActionResult Index()
         {
             return View(_userManager.Users);
         }
-        public IActionResult Tickets()
+        public async Task<IActionResult> Tickets()
         {
-            return View();
+            var devName = "Developer";
+            var devList = await _userManager.GetUsersInRoleAsync(devName);
+            var model = new TicketListViewModel
+            {
+                Tickets = _applicationDbContext.Tickets.ToList(),
+                Developers = devList.ToList()
+            };
+
+            return View(model);
         }
 
         public async Task<IActionResult> Edit(string id)

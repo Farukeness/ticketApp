@@ -1,4 +1,53 @@
+@model TicketListViewModel
 @{
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
-<h2>burada ticketlar görünecek</h2>
+<table class="table table-sm table-bordered" >
+    <thead>
+        <tr>
+            <td>Title</td>
+            <td>Description</td>
+            <td>ticketType</td>
+            <td>ticketPriority</td>
+            <td>ticketStatus</td>
+            <td>CreatedAt</td>
+            <td>AssignedToUser</td>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach(var ticket in Model.Tickets){
+            <form asp-action="EditAssigned" method="post">
+            <tr>
+                <td>@ticket.Title</td>
+                <td>@ticket.Description</td>
+                <td>@ticket.ticketType</td>
+                <td>@ticket.ticketPriority</td>
+                <td>
+                    
+                        <select name="" id="">
+                            @foreach(var opt in Enum.GetValues(typeof(TicketStatus))){
+                                <option value="@opt">@opt</option>
+                                }
+                        </select>
+                    
+                </td>
+                <td>@ticket.CreatedAt</td>
+                <td>
+                    <select name="" id="">         
+                        @foreach(var opt in Model.Developers){
+                            <option value="@opt.UserName">@opt.UserName</option>
+                            }
+                    </select>
+                </td>
+                <td>
+                    <button class="btn btn-primary" type="submit">Kaydet</button>
+                </td>
+            </tr>
+            </form>
+        }
+        
+    </tbody>
+    
+</table>

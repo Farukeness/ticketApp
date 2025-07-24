@@ -1,0 +1,35 @@
+@model Tickets
+<form asp-controller="Ticket" asp-action="Create" method="post">
+    <div class="text-danger" asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.Title"></label>
+        <input class="form-control" asp-for="@Model.Title" >
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.Description"></label>
+        <input class="form-control" asp-for="@Model.Description" >
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.ticketType"></label>
+        <select asp-for="@Model.ticketType" >
+            <option value="" disabled selected>Tip seçiniz</option>
+            @foreach(var opt in Enum.GetValues(typeof(TicketType))){
+                <option value="@opt">@opt</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.ticketPriority"></label>
+        <select asp-for="@Model.ticketPriority" >
+            <option value="" disabled selected>Öncelik seçiniz</option>
+            @foreach(var opt in Enum.GetValues(typeof(TicketPriority))){
+                <option value="@opt">@opt</option>
+            }
+        </select>
+    </div>
+
+    
+    
+    <button class="btn btn-primary" type="submit" >Ekle</button>
+</form>

@@ -3,31 +3,23 @@ using Microsoft.AspNetCore.Mvc;
 using ticketApp.Models;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using ticketApp.Data;
+using System.Security.Claims;
 namespace ticketApp.Controllers;
 [Authorize]
 public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+    private readonly ApplicationDbContext _applicationDbContext;
+    public HomeController(ApplicationDbContext applicationDbContext)
+    {
+        _applicationDbContext = applicationDbContext;
+    }
+       
         public IActionResult Index()
         {
-           
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var TicketList = _applicationDbContext.Tickets.Where(t => t.CreatedByUserId == userId.ToString()).ToList();
+            return View(TicketList);
         }
-        [Authorize(Roles ="Admin")]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
