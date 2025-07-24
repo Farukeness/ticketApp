@@ -18,7 +18,8 @@
     <tbody>
         
         @foreach(var ticket in Model.Tickets){
-            <form asp-action="EditAssigned" method="post">
+            <form asp-action="EditAssigned"  method="post">
+                <input type="hidden" value="@ticket.Id" name="Id">
             <tr>
                 <td>@ticket.Title</td>
                 <td>@ticket.Description</td>
@@ -26,18 +27,22 @@
                 <td>@ticket.ticketPriority</td>
                 <td>
                     
-                        <select name="" id="">
-                            @foreach(var opt in Enum.GetValues(typeof(TicketStatus))){
+                        <select name="ticketStatus" id="ticketStatus">
+                            <option value="" disabled selected>Durum:@ticket.ticketStatus</option>
+                            @foreach(var opt in Enum.GetValues(typeof(TicketStatus)))
+                            {
                                 <option value="@opt">@opt</option>
-                                }
+                            }
                         </select>
                     
                 </td>
                 <td>@ticket.CreatedAt</td>
                 <td>
-                    <select name="" id="">         
+                    <select name="AssignedToUserId" id="AssignedToUserId">  
+                        <option value="" disabled selected>Dev:</option>
                         @foreach(var opt in Model.Developers){
-                            <option value="@opt.UserName">@opt.UserName</option>
+                            
+                            <option value="@opt.Id">@opt.UserName</option>
                             }
                     </select>
                 </td>
