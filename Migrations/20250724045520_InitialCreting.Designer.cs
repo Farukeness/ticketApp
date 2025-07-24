@@ -12,8 +12,8 @@ using ticketApp.Data;
 namespace ticketApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250723142228_AddTicketsAgain")]
-    partial class AddTicketsAgain
+    [Migration("20250724045520_InitialCreting")]
+    partial class InitialCreting
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -262,6 +262,9 @@ namespace ticketApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ContentType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -277,18 +280,21 @@ namespace ticketApp.Migrations
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TicketsId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UploadedByUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("AppUserId");
 
-                    b.HasIndex("UploadedByUserId");
+                    b.HasIndex("TicketsId");
 
                     b.ToTable("TicketAttachments");
                 });
@@ -318,6 +324,9 @@ namespace ticketApp.Migrations
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TicketsId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -325,7 +334,7 @@ namespace ticketApp.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("TicketsId");
 
                     b.ToTable("TicketComments");
                 });
@@ -429,21 +438,19 @@ namespace ticketApp.Migrations
 
             modelBuilder.Entity("ticketApp.Models.TicketAttachments", b =>
                 {
-                    b.HasOne("ticketApp.Models.Tickets", "Ticket")
-                        .WithMany()
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ticketApp.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("UploadedByUserId")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("ticketApp.Models.Tickets", "Tickets")
+                        .WithMany()
+                        .HasForeignKey("TicketsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Ticket");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("ticketApp.Models.TicketComments", b =>
@@ -452,15 +459,15 @@ namespace ticketApp.Migrations
                         .WithMany()
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("ticketApp.Models.Tickets", "Ticket")
+                    b.HasOne("ticketApp.Models.Tickets", "Tickets")
                         .WithMany()
-                        .HasForeignKey("TicketId")
+                        .HasForeignKey("TicketsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Ticket");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("ticketApp.Models.Tickets", b =>

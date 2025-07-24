@@ -21,7 +21,7 @@ namespace ticketApp.Models
         [Required]
 
         public string UploadedByUserId { get; set; } = string.Empty;
-        [ForeignKey(nameof(AppUser))]
+        
         public AppUser AppUser { get; set; } = null!;
     }
 }

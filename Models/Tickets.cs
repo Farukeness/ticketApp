@@ -18,13 +18,13 @@ namespace ticketApp.Models
 
 
         [Required]
-        [ForeignKey(nameof(CreatedByUser))]
+        
         public string CreatedByUserId { get; set; } = string.Empty;
         public AppUser CreatedByUser { get; set; } = null!;
 
 
         public string? AssignedToUserId { get; set; }
-        [ForeignKey(nameof(AssignedToUser))]
+        
         public AppUser? AssignedToUser { get; set; } 
         public int ProjectId { get; set; }
 

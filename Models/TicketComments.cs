@@ -20,7 +20,7 @@ namespace ticketApp.Models
 
         [Required]
         public string CommentedByUserId { get; set; } = string.Empty;
-        [ForeignKey(nameof(CommentedByUserId))]
+        
         public AppUser AppUser { get; set; } = null!;
     }
 }

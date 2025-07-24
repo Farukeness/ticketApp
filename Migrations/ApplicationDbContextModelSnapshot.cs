@@ -259,6 +259,9 @@ namespace ticketApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ContentType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -274,7 +277,7 @@ namespace ticketApp.Migrations
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TicketsIdId")
+                    b.Property<int>("TicketsId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UploadedAt")
@@ -282,13 +285,13 @@ namespace ticketApp.Migrations
 
                     b.Property<string>("UploadedByUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TicketsIdId");
+                    b.HasIndex("AppUserId");
 
-                    b.HasIndex("UploadedByUserId");
+                    b.HasIndex("TicketsId");
 
                     b.ToTable("TicketAttachments");
                 });
@@ -318,6 +321,9 @@ namespace ticketApp.Migrations
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TicketsId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -325,7 +331,7 @@ namespace ticketApp.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("TicketsId");
 
                     b.ToTable("TicketComments");
                 });
@@ -429,21 +435,19 @@ namespace ticketApp.Migrations
 
             modelBuilder.Entity("ticketApp.Models.TicketAttachments", b =>
                 {
-                    b.HasOne("ticketApp.Models.Tickets", "TicketsId")
-                        .WithMany()
-                        .HasForeignKey("TicketsIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ticketApp.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("UploadedByUserId")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("ticketApp.Models.Tickets", "Tickets")
+                        .WithMany()
+                        .HasForeignKey("TicketsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("TicketsId");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("ticketApp.Models.TicketComments", b =>
@@ -452,15 +456,15 @@ namespace ticketApp.Migrations
                         .WithMany()
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("ticketApp.Models.Tickets", "TicketsID")
+                    b.HasOne("ticketApp.Models.Tickets", "Tickets")
                         .WithMany()
-                        .HasForeignKey("TicketId")
+                        .HasForeignKey("TicketsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("TicketsID");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("ticketApp.Models.Tickets", b =>
