@@ -1,1 +1,29 @@
-<h2>Index</h2>
+@model IEnumerable<Tickets>
+@{
+ViewData["Title"] = "Home Page";
+}
+@foreach(var ticket in Model){
+<div class="card card-body my-3">
+    <form asp-action="AddComment" method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-11">                    
+                        @{var atama = ticket.AssignedToUserId == null ? "Henüz Atama Yapılmadı":"dsf";}
+                        <p>@ticket.Title</p> 
+                        <p>@ticket.Description</p>
+                        <p>@ticket.ticketType</p>
+                        <p>@ticket.ticketPriority</p>
+                        <p>@ticket.ticketStatus</p>
+                        <p>@ticket.CreatedAt</p>
+                        <p>@atama</p>
+                    <label for="CommentText">Yorum</label>
+                    <input type="text" name="CommentText">
+                    <input type="hidden" name="TicketId" value="@ticket.Id">
+                   <button class="btn btn-primary" type="submit">Ekle</button>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+</div>
+ }

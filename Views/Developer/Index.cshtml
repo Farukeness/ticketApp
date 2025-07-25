@@ -1,0 +1,6 @@
+@model IEnumerable<Tickets>
+
+<h2>Developer burada kendine atanan biletler gözükecek</h2>
+@foreach(var t in Model){
+    <h2>@t.Title</h2>
+}

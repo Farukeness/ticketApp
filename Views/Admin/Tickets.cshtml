@@ -38,13 +38,11 @@
                 </td>
                 <td>@ticket.CreatedAt</td>
                 <td>
-                    <select name="AssignedToUserId" id="AssignedToUserId">  
-                        <option value="" disabled selected>Dev:</option>
-                        @foreach(var opt in Model.Developers){
-                            
-                            <option value="@opt.Id">@opt.UserName</option>
-                            }
-                    </select>
+                    @foreach(var opt in Model.Developers){
+                    <input type="checkbox" name="AssignedToUserId" value="@opt.Id" id="AssignedToUserId">
+                    <label for="AssignedToUserId" >@opt.UserName</label>
+                    }
+                    
                 </td>
                 <td>
                     <button class="btn btn-primary" type="submit">Kaydet</button>

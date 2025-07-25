@@ -46,7 +46,7 @@ namespace ticketApp.Controllers
                 };
                 _applicationDbContext.Tickets.Add(_ticket);
                 await _applicationDbContext.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "User");
             }
             return View(model);
         }

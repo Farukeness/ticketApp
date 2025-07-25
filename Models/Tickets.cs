@@ -20,12 +20,13 @@ namespace ticketApp.Models
         
         
         public string CreatedByUserId { get; set; } = string.Empty;
-        public AppUser? CreatedByUser { get; set; } 
+        public AppUser? CreatedByUser { get; set; }
 
 
         public string? AssignedToUserId { get; set; }
-        
+
         public AppUser? AssignedToUser { get; set; } 
+        //public ICollection<TicketAssigments> Assigments { get; set; } = new List<TicketAssigments>();
         public int ProjectId { get; set; }
 
 }

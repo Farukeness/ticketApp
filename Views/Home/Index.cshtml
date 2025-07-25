@@ -1,35 +1,5 @@
-﻿@model IEnumerable<Tickets>
+﻿
 @{
 ViewData["Title"] = "Home Page";
 }
-<table class="table table-sm table-bordered" >
-    <thead>
-        <tr>
-            <td>Title</td>
-            <td>Description</td>
-            <td>ticketType</td>
-            <td>ticketPriority</td>
-            <td>ticketStatus</td>
-            <td>CreatedAt</td>
-            <td>Developer</td>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var ticket in Model){
-            var atama = ticket.AssignedToUserId == null ? "Henüz Atama Yapılmadı":ticket.AssignedToUserId;
-            <tr>
-                <td>@ticket.Title</td>
-                <td>@ticket.Description</td>
-                <td>@ticket.ticketType</td>
-                <td>@ticket.ticketPriority</td>
-                <td>@ticket.ticketStatus</td>
-                <td>@ticket.CreatedAt</td>
-                <td>@atama</td>
-                
-                <td>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<h1>Anasayfa</h1>
