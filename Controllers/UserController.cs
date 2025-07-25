@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using ticketApp.ViewModel;
 using System.Threading.Tasks;
+
 namespace ticketApp.Controllers;
 [Authorize]
 public class UserController : Controller
@@ -23,28 +24,49 @@ public class UserController : Controller
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var TicketList = _applicationDbContext.Tickets.Where(t => t.CreatedByUserId == userId.ToString()).ToList();
+            var TicketList = _applicationDbContext.Tickets.Where(t => t.CreatedByUserId == userId!.ToString()).ToList();
             return View(TicketList);
         }
 
 
     [HttpPost]
-    public async Task<IActionResult> AddComment(TicketComments model)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddComment(TicketComments model, IFormFile imageFile)
     {
-        if (ModelState.IsValid)
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", imageFile.FileName);
+        using (var stream = new FileStream(path, FileMode.Create))
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            model.CommentedAt = DateTime.Now;
-            model.UpdatedAt = DateTime.Now;
-            if (userId == null) { return NotFound(); }
-            model.CommentedByUserId = userId;
-            model.TicketId = model.TicketId;
-            _applicationDbContext.TicketComments.Add(model);
-            await _applicationDbContext.SaveChangesAsync();
-            return RedirectToAction("Index", "User");
+            await imageFile.CopyToAsync(stream);
         }
-            return RedirectToAction("Index");
-            
-        }
+        
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        model.CommentedAt = DateTime.Now;
+        model.UpdatedAt = DateTime.Now;
+        if (userId == null) { return NotFound(); }
+        model.CommentedByUserId = userId;
+        model.TicketId = model.TicketId;
+
+
+
+        var _ticketAttachments = new TicketAttachments
+            {
+            TicketId = model.TicketId,
+            FileName = imageFile.FileName,
+            FilePath = path,
+            ContentType = imageFile.ContentType,
+            UploadedAt = DateTime.Now,
+            UploadedByUserId = userId
+
+        };
+
+         _applicationDbContext.TicketComments.Add(model);
+        _applicationDbContext.TicketAttachments.Add(_ticketAttachments);
+        await _applicationDbContext.SaveChangesAsync();
+        return RedirectToAction("Index", "User");
+       
+        
+
+    }
         
     }

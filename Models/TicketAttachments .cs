@@ -8,7 +8,8 @@ namespace ticketApp.Models
         public int Id { get; set; }
 
         public int TicketId { get; set; }
-        public Tickets Tickets { get; set; } = null!;
+        [ForeignKey("TicketId")]
+        public Tickets Ticket { get; set; } = null!;
 
         [Required]
         public string FileName { get; set; } = string.Empty;

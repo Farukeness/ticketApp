@@ -4,7 +4,8 @@ ViewData["Title"] = "Home Page";
 }
 @foreach(var ticket in Model){
 <div class="card card-body my-3">
-    <form asp-action="AddComment" method="post">
+    <form asp-action="AddComment" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" ></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-11">                    
@@ -19,6 +20,7 @@ ViewData["Title"] = "Home Page";
                     <label for="CommentText">Yorum</label>
                     <input type="text" name="CommentText">
                     <input type="hidden" name="TicketId" value="@ticket.Id">
+                    <input type="file" name="imageFile"  id="imageFile">
                    <button class="btn btn-primary" type="submit">Ekle</button>
                 </div>
                 
