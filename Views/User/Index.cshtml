@@ -3,29 +3,32 @@
 ViewData["Title"] = "Home Page";
 }
 @foreach(var ticket in Model){
-<div class="card card-body my-3">
-    <form asp-action="AddComment" method="post" enctype="multipart/form-data">
-    <div asp-validation-summary="All" ></div>
+    <div class="card card-body my-3">
         <div class="container">
             <div class="row">
-                <div class="col-md-11">                    
-                        @{var atama = ticket.AssignedToUserId == null ? "Henüz Atama Yapılmadı":"dsf";}
-                        <p>@ticket.Title</p> 
-                        <p>@ticket.Description</p>
-                        <p>@ticket.ticketType</p>
-                        <p>@ticket.ticketPriority</p>
-                        <p>@ticket.ticketStatus</p>
-                        <p>@ticket.CreatedAt</p>
-                        <p>@atama</p>
-                    <label for="CommentText">Yorum</label>
-                    <input type="text" name="CommentText">
-                    <input type="hidden" name="TicketId" value="@ticket.Id">
-                    <input type="file" name="imageFile"  id="imageFile">
-                   <button class="btn btn-primary" type="submit">Ekle</button>
+                <div class="col-md-11">
+                    @{var atama = ticket.AssignedToUserId == null ? "Henüz Atama Yapılmadı":"dsf";}
+                    <p>@ticket.Title</p> 
+                    <p>@ticket.Description</p>
+                    <p>@ticket.ticketType</p>
+                    <p>@ticket.ticketPriority</p>
+                    <p>@ticket.ticketStatus</p>
+                    <p>@ticket.CreatedAt</p>
+                    <p>@atama</p>
+                    <form asp-action="AddComment" method="post">
+                        <div asp-validation-summary="All"></div>
+                        <label for="CommentText">Yorum</label>
+                        <input type="text" name="CommentText">
+                        <input type="hidden" name="TicketId" value="@ticket.Id">
+                        <button class="btn btn-primary" type="submit">Ekle</button>
+                    </form>
+                    <form asp-action="AddCommentFile" method="post" enctype="multipart/form-data" class="mt-2">
+                        <input type="hidden" name="TicketId" value="@ticket.Id">
+                        <input type="file" name="imageFile" id="imageFile">
+                        <button class="btn btn-primary" type="submit">Dosya Ekle</button>
+                    </form>
                 </div>
-                
             </div>
         </div>
-    </form>
-</div>
- }
+    </div>
+}
