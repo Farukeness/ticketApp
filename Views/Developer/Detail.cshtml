@@ -40,6 +40,7 @@
                     @if(comment.CommentedByUserId == user.Id)
                     {
                         <p>@user.UserName</p>
+                        
                     }
                 }
             </li>
@@ -70,8 +71,8 @@ else
                 {
                     <img style="width: 300px;" src="~/img/@file.FileName" />
                 }
-                <a href="@Url.Action("img", new { id = file.Id })">@file.FileName</a>
-                <span class="text-muted">(@file.UploadedAt.ToString("dd.MM.yyyy"))</span>
+                <br>
+                <a  asp-action="Download" asp-controller="Files" asp-route-id="@file.Id">@file.FileName</a>
             </li>
         }
     </ul>

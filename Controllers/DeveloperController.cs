@@ -38,6 +38,7 @@ namespace ticketApp.Controllers
             var _ticketComment = _applicationDbContext.TicketComments.Where(t => t.TicketId == Id);
             var _ticketAttachemnts = _applicationDbContext.TicketAttachments.Where(t => t.TicketId == Id);
             
+            
 
             var model = new TicketDetailViewModel
             {

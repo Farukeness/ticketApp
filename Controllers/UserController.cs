@@ -51,7 +51,7 @@ public class UserController : Controller
     {
         var extension = Path.GetExtension(imageFile.FileName);
         var randomFileName = string.Format($"{Guid.NewGuid().ToString()}{extension}");
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", randomFileName);
         using (var stream = new FileStream(path, FileMode.Create))
         {
             await imageFile.CopyToAsync(stream);
