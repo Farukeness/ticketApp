@@ -1,6 +1,8 @@
 @model TicketDetailViewModel
-
-<h2>Ticket Detayı</h2>
+@{
+    Layout = "~/Views/Shared/_developerLayout.cshtml";
+}
+<h2>Bilet Detayı</h2>
 
 <div class="card mb-4">
     <div class="card-header">
@@ -10,7 +12,7 @@
         <p><strong>Açıklama:</strong> @Model.ticket.Description</p>
         <p><strong>Tür:</strong> @Model.ticket.ticketType</p>
         <p><strong>Öncelik:</strong> @Model.ticket.ticketPriority</p>
-        <p><strong>Durum:</strong></p>
+        <p><strong>Durum:@Model.ticket.ticketStatus</strong></p>
         <p><strong>Oluşturulma Tarihi:</strong> @Model.ticket.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
         <form asp-action="Detail" method="post">
             <select name="ticketStatus" id="ticketStatus">
@@ -69,7 +71,7 @@ else
             <li class="list-group-item">
                 @if(file.ContentType.StartsWith("image"))
                 {
-                    <img style="width: 300px;" src="~/img/@file.FileName" />
+                    <img style="width: 300px;" src="~/uploads/@file.FileName" />
                 }
                 <br>
                 <a  asp-action="Download" asp-controller="Files" asp-route-id="@file.Id">@file.FileName</a>

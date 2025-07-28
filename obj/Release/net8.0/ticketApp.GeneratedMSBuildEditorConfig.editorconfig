@@ -28,20 +28,68 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Account/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Admin/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Admin/Tickets.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVGlja2V0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Developer/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV2ZWxvcGVyXERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Developer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV2ZWxvcGVyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/_adminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/_developerLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9kZXZlbG9wZXJMYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/_userLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF91c2VyTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Ticket/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/User/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/_ViewImports.cshtml]

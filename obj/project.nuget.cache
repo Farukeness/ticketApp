@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UUH4bWjUhz0=",
+  "dgSpecHash": "p7nTkhsecX0=",
   "success": true,
   "projectFilePath": "C:\\Users\\Faruk Enes Zan\\OneDrive\\Belgeler\\MyProjects\\.Net\\ticketApp\\ticketApp.csproj",
   "expectedPackageFiles": [
@@ -13,10 +13,13 @@
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.build.framework\\17.8.3\\microsoft.build.framework.17.8.3.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.build.locator\\1.7.8\\microsoft.build.locator.1.7.8.nupkg.sha512",
+    "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.codeanalysis\\4.8.0\\microsoft.codeanalysis.4.8.0.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.4\\microsoft.codeanalysis.analyzers.3.3.4.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.codeanalysis.common\\4.8.0\\microsoft.codeanalysis.common.4.8.0.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.codeanalysis.csharp\\4.8.0\\microsoft.codeanalysis.csharp.4.8.0.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.codeanalysis.csharp.workspaces\\4.8.0\\microsoft.codeanalysis.csharp.workspaces.4.8.0.nupkg.sha512",
+    "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.codeanalysis.visualbasic\\4.8.0\\microsoft.codeanalysis.visualbasic.4.8.0.nupkg.sha512",
+    "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.codeanalysis.visualbasic.workspaces\\4.8.0\\microsoft.codeanalysis.visualbasic.workspaces.4.8.0.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.codeanalysis.workspaces.common\\4.8.0\\microsoft.codeanalysis.workspaces.common.4.8.0.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.codeanalysis.workspaces.msbuild\\4.8.0\\microsoft.codeanalysis.workspaces.msbuild.4.8.0.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
@@ -88,17 +91,11 @@
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\system.text.json\\9.0.7\\system.text.json.9.0.7.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512",
     "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\telerik.fonticons\\4.3.0\\telerik.fonticons.4.3.0.nupkg.sha512",
+    "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\telerik.licensing\\1.6.5\\telerik.licensing.1.6.5.nupkg.sha512",
+    "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\telerik.svgicons\\4.3.0\\telerik.svgicons.4.3.0.nupkg.sha512",
+    "C:\\Users\\Faruk Enes Zan\\.nuget\\packages\\telerik.ui.for.aspnet.core\\2025.2.702\\telerik.ui.for.aspnet.core.2025.2.702.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://nuget.telerik.com/v3/index.json.",
-      "projectPath": "C:\\Users\\Faruk Enes Zan\\OneDrive\\Belgeler\\MyProjects\\.Net\\ticketApp\\ticketApp.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\Faruk Enes Zan\\OneDrive\\Belgeler\\MyProjects\\.Net\\ticketApp\\ticketApp.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

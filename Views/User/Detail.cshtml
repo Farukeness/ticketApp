@@ -1,0 +1,79 @@
+@model TicketDetailViewModel
+@{
+    Layout = "~/Views/Shared/_developerLayout.cshtml";
+}
+<h2>Ticket Detayı</h2>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <strong>@Model.ticket.Title</strong>
+    </div>
+    <div class="card-body">
+        <p><strong>Açıklama:</strong> @Model.ticket.Description</p>
+        <p><strong>Tür:</strong> @Model.ticket.ticketType</p>
+        <p><strong>Öncelik:</strong> @Model.ticket.ticketPriority</p>
+        <p><strong>Durum:</strong>@Model.ticket.ticketStatus</p>
+        <p><strong>Oluşturulma Tarihi:</strong> @Model.ticket.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+    </div>
+</div>
+
+<h4>Yorumlar</h4>
+@if (Model.ticketComment.Any())
+{
+    <ul class="list-group mb-4">
+        @foreach (var comment in Model.ticketComment)
+        {
+            <li class="list-group-item">
+                <strong>@comment.AppUser</strong> - @comment.CommentedAt.ToString("dd.MM.yyyy HH:mm")<br />
+                @comment.CommentText
+                @foreach(var user in Model.Usernames)
+                {
+                    @if(comment.CommentedByUserId == user.Id)
+                    {
+                        <p>@user.UserName</p>
+                        
+                    }
+                }
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p class="text-muted">Henüz yorum yok.</p>
+}
+
+<form asp-action="AddComment" method="post" class="mb-4">
+    <input type="hidden" name="ticketId" value="@Model.ticket.Id" />
+    <div class="mb-2">
+        <textarea name="CommentText" class="form-control" placeholder="Yorumunuzu yazın..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-secondary btn-sm">Yorum Ekle</button>
+</form>
+
+<h4>Ekli Dosyalar</h4>
+@if (Model.ticketAttachments.Any())
+{
+    <ul class="list-group mb-4">
+        @foreach (var file in Model.ticketAttachments)
+        {
+            <li class="list-group-item">
+                @if(file.ContentType.StartsWith("image"))
+                {
+                    <img style="width: 300px;" src="~/uploads/@file.FileName" />
+                }
+                <br>
+                <a  asp-action="Download" asp-controller="Files" asp-route-id="@file.Id">Dosyayı indir</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p class="text-muted">Dosya eklenmemiş.</p>
+}
+<form asp-action="AddCommentFile" method="post" enctype="multipart/form-data" class="mt-2">
+    <input type="hidden" name="TicketId" value="@Model.ticket.Id">
+    <input type="file" name="imageFile" id="imageFile">
+    <button class="btn btn-primary" type="submit">Dosya Ekle</button>
+</form>

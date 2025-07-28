@@ -1,4 +1,7 @@
 @model Tickets
+@{
+    Layout = "~/Views/Shared/_userLayout.cshtml";
+}
 <form asp-controller="Ticket" asp-action="Create" method="post">
     <div class="text-danger" asp-validation-summary="All"></div>
     <div class="mb-3">

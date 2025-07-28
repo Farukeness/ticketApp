@@ -1,34 +1,28 @@
-@model IEnumerable<Tickets>
+
 @{
-ViewData["Title"] = "Home Page";
+ViewData["Title"] = "Tickets";
 }
-@foreach(var ticket in Model){
-    <div class="card card-body my-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-11">
-                    @{var atama = ticket.AssignedToUserId == null ? "Henüz Atama Yapılmadı":"dsf";}
-                    <p>@ticket.Title</p> 
-                    <p>@ticket.Description</p>
-                    <p>@ticket.ticketType</p>
-                    <p>@ticket.ticketPriority</p>
-                    <p>@ticket.ticketStatus</p>
-                    <p>@ticket.CreatedAt</p>
-                    <p>@atama</p>
-                    <form asp-action="AddComment" method="post">
-                        <div asp-validation-summary="All"></div>
-                        <label for="CommentText">Yorum</label>
-                        <input type="text" name="CommentText">
-                        <input type="hidden" name="TicketId" value="@ticket.Id">
-                        <button class="btn btn-primary" type="submit">Ekle</button>
-                    </form>
-                    <form asp-action="AddCommentFile" method="post" enctype="multipart/form-data" class="mt-2">
-                        <input type="hidden" name="TicketId" value="@ticket.Id">
-                        <input type="file" name="imageFile" id="imageFile">
-                        <button class="btn btn-primary" type="submit">Dosya Ekle</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+@{
+    Layout = "~/Views/Shared/_userLayout.cshtml";
 }
+
+
+<section class="jumbotron text-center">
+@(Html.Kendo().Grid<ticketApp.Models.Tickets>().Name("TicketsGrid").Columns(columns => {
+    columns.Bound(c => c.Id);
+    columns.Bound(c => c.Title);
+    columns.Bound(c => c.Description);
+    columns.Bound(c => c.ticketType);
+    columns.Bound(c => c.ticketPriority);
+    columns.Bound(c => c.ticketStatus);
+    columns.Bound(c => c.CreatedAt);
+    
+    
+    }).Pageable()
+    .Sortable()
+    .Filterable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Read(read => read.Action("Tickets_Read","Grid"))
+    ))
+</section>

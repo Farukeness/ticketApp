@@ -8,6 +8,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using ticketApp.ViewModel;
 using System.Threading.Tasks;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace ticketApp.Controllers;
 
@@ -24,10 +26,10 @@ public class UserController : Controller
 
     public IActionResult Index()
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var TicketList = _applicationDbContext.Tickets.Where(t => t.CreatedByUserId == userId!.ToString()).ToList();
-        return View(TicketList);
+        return View();
     }
+
+    
 
 
     [HttpPost]
@@ -42,9 +44,9 @@ public class UserController : Controller
         model.TicketId = model.TicketId;
         _applicationDbContext.TicketComments.Add(model);
         await _applicationDbContext.SaveChangesAsync();
-        return RedirectToAction("Index", "User");
+        return RedirectToAction("Detail", "User",new {Id = model.TicketId});
     }
-    
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddCommentFile(int TicketId, IFormFile imageFile)
@@ -56,7 +58,7 @@ public class UserController : Controller
         {
             await imageFile.CopyToAsync(stream);
         }
-        
+
 
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) { return NotFound(); }
@@ -64,7 +66,7 @@ public class UserController : Controller
 
 
         var _ticketAttachments = new TicketAttachments
-            {
+        {
             TicketId = TicketId,
             FileName = randomFileName,
             FilePath = path,
@@ -75,10 +77,33 @@ public class UserController : Controller
         };
         _applicationDbContext.TicketAttachments.Add(_ticketAttachments);
         await _applicationDbContext.SaveChangesAsync();
-        return RedirectToAction("Index", "User");
-       
-        
+        return RedirectToAction("Detail", "User",new{Id =TicketId });
+
+
 
     }
+    
+    [HttpGet]
+        public async Task<IActionResult> Detail(int? Id)
+        {
+            if (Id == null) { return NotFound(); }
+            var _ticket = await _applicationDbContext.Tickets.FindAsync(Id);
+            var _ticketComment = _applicationDbContext.TicketComments.Where(t => t.TicketId == Id);
+            var _ticketAttachemnts = _applicationDbContext.TicketAttachments.Where(t => t.TicketId == Id);
+            
+            
+
+            var model = new TicketDetailViewModel
+            {
+                ticket = _ticket,
+                ticketComment = _ticketComment,
+                ticketAttachments = _ticketAttachemnts,
+                Usernames = _userManager.Users.ToList()
+
+            };
+            return View(model);
+        }
+
+
         
     }

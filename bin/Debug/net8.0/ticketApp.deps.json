@@ -12,7 +12,8 @@
           "Microsoft.EntityFrameworkCore.Design": "9.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.7",
-          "NUPKG": "1.0.0"
+          "NUPKG": "1.0.0",
+          "Telerik.UI.for.AspNet.Core": "2025.2.702"
         },
         "runtime": {
           "ticketApp.dll": {}
@@ -107,6 +108,12 @@
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.7.8.28074"
           }
+        }
+      },
+      "Microsoft.CodeAnalysis/4.8.0": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.8.0",
+          "Microsoft.CodeAnalysis.VisualBasic.Workspaces": "4.8.0"
         }
       },
       "Microsoft.CodeAnalysis.Analyzers/3.3.4": {},
@@ -268,6 +275,112 @@
             "locale": "zh-Hans"
           },
           "lib/net7.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.CodeAnalysis.VisualBasic/4.8.0": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Common": "4.8.0"
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.CodeAnalysis.VisualBasic.dll": {
+            "assemblyVersion": "4.8.0.0",
+            "fileVersion": "4.800.23.55801"
+          }
+        },
+        "resources": {
+          "lib/net7.0/cs/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net7.0/de/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net7.0/es/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net7.0/fr/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net7.0/it/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net7.0/ja/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net7.0/ko/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net7.0/pl/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net7.0/pt-BR/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net7.0/ru/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net7.0/tr/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net7.0/zh-Hans/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net7.0/zh-Hant/Microsoft.CodeAnalysis.VisualBasic.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.CodeAnalysis.VisualBasic.Workspaces/4.8.0": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Common": "4.8.0",
+          "Microsoft.CodeAnalysis.VisualBasic": "4.8.0",
+          "Microsoft.CodeAnalysis.Workspaces.Common": "4.8.0"
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll": {
+            "assemblyVersion": "4.8.0.0",
+            "fileVersion": "4.800.23.55801"
+          }
+        },
+        "resources": {
+          "lib/net7.0/cs/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net7.0/de/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net7.0/es/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net7.0/fr/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net7.0/it/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net7.0/ja/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net7.0/ko/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net7.0/pl/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net7.0/pt-BR/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net7.0/ru/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net7.0/tr/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net7.0/zh-Hans/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net7.0/zh-Hant/Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll": {
             "locale": "zh-Hant"
           }
         }
@@ -1104,6 +1217,337 @@
             "fileVersion": "6.0.21.52210"
           }
         }
+      },
+      "Telerik.FontIcons/4.3.0": {
+        "runtime": {
+          "lib/netstandard2.0/Telerik.FontIcons.dll": {
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.3.0.0"
+          }
+        }
+      },
+      "Telerik.Licensing/1.6.5": {
+        "runtime": {
+          "lib/net8.0/Telerik.Licensing.Runtime.dll": {
+            "assemblyVersion": "1.6.5.0",
+            "fileVersion": "1.6.5.0"
+          }
+        }
+      },
+      "Telerik.SvgIcons/4.3.0": {
+        "runtime": {
+          "lib/netstandard2.0/Telerik.SvgIcons.dll": {
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.3.0.0"
+          }
+        }
+      },
+      "Telerik.UI.for.AspNet.Core/2025.2.702": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis": "4.8.0",
+          "Telerik.FontIcons": "4.3.0",
+          "Telerik.Licensing": "1.6.5",
+          "Telerik.SvgIcons": "4.3.0"
+        },
+        "runtime": {
+          "lib/net8.0/Kendo.Mvc.dll": {
+            "assemblyVersion": "2025.2.702.0",
+            "fileVersion": "2025.2.702.0"
+          }
+        },
+        "resources": {
+          "lib/net8.0/ar-AE/Kendo.Mvc.resources.dll": {
+            "locale": "ar-AE"
+          },
+          "lib/net8.0/ar-BH/Kendo.Mvc.resources.dll": {
+            "locale": "ar-BH"
+          },
+          "lib/net8.0/ar-DJ/Kendo.Mvc.resources.dll": {
+            "locale": "ar-DJ"
+          },
+          "lib/net8.0/ar-DZ/Kendo.Mvc.resources.dll": {
+            "locale": "ar-DZ"
+          },
+          "lib/net8.0/ar-EG/Kendo.Mvc.resources.dll": {
+            "locale": "ar-EG"
+          },
+          "lib/net8.0/ar-ER/Kendo.Mvc.resources.dll": {
+            "locale": "ar-ER"
+          },
+          "lib/net8.0/ar-IL/Kendo.Mvc.resources.dll": {
+            "locale": "ar-IL"
+          },
+          "lib/net8.0/ar-IQ/Kendo.Mvc.resources.dll": {
+            "locale": "ar-IQ"
+          },
+          "lib/net8.0/ar-JO/Kendo.Mvc.resources.dll": {
+            "locale": "ar-JO"
+          },
+          "lib/net8.0/ar-KM/Kendo.Mvc.resources.dll": {
+            "locale": "ar-KM"
+          },
+          "lib/net8.0/ar-KW/Kendo.Mvc.resources.dll": {
+            "locale": "ar-KW"
+          },
+          "lib/net8.0/ar-LB/Kendo.Mvc.resources.dll": {
+            "locale": "ar-LB"
+          },
+          "lib/net8.0/ar-LY/Kendo.Mvc.resources.dll": {
+            "locale": "ar-LY"
+          },
+          "lib/net8.0/ar-MA/Kendo.Mvc.resources.dll": {
+            "locale": "ar-MA"
+          },
+          "lib/net8.0/ar-MR/Kendo.Mvc.resources.dll": {
+            "locale": "ar-MR"
+          },
+          "lib/net8.0/ar-OM/Kendo.Mvc.resources.dll": {
+            "locale": "ar-OM"
+          },
+          "lib/net8.0/ar-PS/Kendo.Mvc.resources.dll": {
+            "locale": "ar-PS"
+          },
+          "lib/net8.0/ar-QA/Kendo.Mvc.resources.dll": {
+            "locale": "ar-QA"
+          },
+          "lib/net8.0/ar-SA/Kendo.Mvc.resources.dll": {
+            "locale": "ar-SA"
+          },
+          "lib/net8.0/ar-SD/Kendo.Mvc.resources.dll": {
+            "locale": "ar-SD"
+          },
+          "lib/net8.0/ar-SO/Kendo.Mvc.resources.dll": {
+            "locale": "ar-SO"
+          },
+          "lib/net8.0/ar-SS/Kendo.Mvc.resources.dll": {
+            "locale": "ar-SS"
+          },
+          "lib/net8.0/ar-SY/Kendo.Mvc.resources.dll": {
+            "locale": "ar-SY"
+          },
+          "lib/net8.0/ar-TD/Kendo.Mvc.resources.dll": {
+            "locale": "ar-TD"
+          },
+          "lib/net8.0/ar-TN/Kendo.Mvc.resources.dll": {
+            "locale": "ar-TN"
+          },
+          "lib/net8.0/ar-YE/Kendo.Mvc.resources.dll": {
+            "locale": "ar-YE"
+          },
+          "lib/net8.0/bg-BG/Kendo.Mvc.resources.dll": {
+            "locale": "bg-BG"
+          },
+          "lib/net8.0/cs-CZ/Kendo.Mvc.resources.dll": {
+            "locale": "cs-CZ"
+          },
+          "lib/net8.0/da-DK/Kendo.Mvc.resources.dll": {
+            "locale": "da-DK"
+          },
+          "lib/net8.0/de-AT/Kendo.Mvc.resources.dll": {
+            "locale": "de-AT"
+          },
+          "lib/net8.0/de-CH/Kendo.Mvc.resources.dll": {
+            "locale": "de-CH"
+          },
+          "lib/net8.0/de-DE/Kendo.Mvc.resources.dll": {
+            "locale": "de-DE"
+          },
+          "lib/net8.0/de-LI/Kendo.Mvc.resources.dll": {
+            "locale": "de-LI"
+          },
+          "lib/net8.0/el-GR/Kendo.Mvc.resources.dll": {
+            "locale": "el-GR"
+          },
+          "lib/net8.0/en-AU/Kendo.Mvc.resources.dll": {
+            "locale": "en-AU"
+          },
+          "lib/net8.0/en-CA/Kendo.Mvc.resources.dll": {
+            "locale": "en-CA"
+          },
+          "lib/net8.0/en-GB/Kendo.Mvc.resources.dll": {
+            "locale": "en-GB"
+          },
+          "lib/net8.0/es-AR/Kendo.Mvc.resources.dll": {
+            "locale": "es-AR"
+          },
+          "lib/net8.0/es-BO/Kendo.Mvc.resources.dll": {
+            "locale": "es-BO"
+          },
+          "lib/net8.0/es-CL/Kendo.Mvc.resources.dll": {
+            "locale": "es-CL"
+          },
+          "lib/net8.0/es-CO/Kendo.Mvc.resources.dll": {
+            "locale": "es-CO"
+          },
+          "lib/net8.0/es-CR/Kendo.Mvc.resources.dll": {
+            "locale": "es-CR"
+          },
+          "lib/net8.0/es-DO/Kendo.Mvc.resources.dll": {
+            "locale": "es-DO"
+          },
+          "lib/net8.0/es-EC/Kendo.Mvc.resources.dll": {
+            "locale": "es-EC"
+          },
+          "lib/net8.0/es-ES/Kendo.Mvc.resources.dll": {
+            "locale": "es-ES"
+          },
+          "lib/net8.0/es-GT/Kendo.Mvc.resources.dll": {
+            "locale": "es-GT"
+          },
+          "lib/net8.0/es-HN/Kendo.Mvc.resources.dll": {
+            "locale": "es-HN"
+          },
+          "lib/net8.0/es-MX/Kendo.Mvc.resources.dll": {
+            "locale": "es-MX"
+          },
+          "lib/net8.0/es-NI/Kendo.Mvc.resources.dll": {
+            "locale": "es-NI"
+          },
+          "lib/net8.0/es-PA/Kendo.Mvc.resources.dll": {
+            "locale": "es-PA"
+          },
+          "lib/net8.0/es-PE/Kendo.Mvc.resources.dll": {
+            "locale": "es-PE"
+          },
+          "lib/net8.0/es-PR/Kendo.Mvc.resources.dll": {
+            "locale": "es-PR"
+          },
+          "lib/net8.0/es-PY/Kendo.Mvc.resources.dll": {
+            "locale": "es-PY"
+          },
+          "lib/net8.0/es-US/Kendo.Mvc.resources.dll": {
+            "locale": "es-US"
+          },
+          "lib/net8.0/es-UY/Kendo.Mvc.resources.dll": {
+            "locale": "es-UY"
+          },
+          "lib/net8.0/es-VE/Kendo.Mvc.resources.dll": {
+            "locale": "es-VE"
+          },
+          "lib/net8.0/fa-IR/Kendo.Mvc.resources.dll": {
+            "locale": "fa-IR"
+          },
+          "lib/net8.0/fi-FI/Kendo.Mvc.resources.dll": {
+            "locale": "fi-FI"
+          },
+          "lib/net8.0/fr-BE/Kendo.Mvc.resources.dll": {
+            "locale": "fr-BE"
+          },
+          "lib/net8.0/fr-CA/Kendo.Mvc.resources.dll": {
+            "locale": "fr-CA"
+          },
+          "lib/net8.0/fr-CD/Kendo.Mvc.resources.dll": {
+            "locale": "fr-CD"
+          },
+          "lib/net8.0/fr-CH/Kendo.Mvc.resources.dll": {
+            "locale": "fr-CH"
+          },
+          "lib/net8.0/fr-CI/Kendo.Mvc.resources.dll": {
+            "locale": "fr-CI"
+          },
+          "lib/net8.0/fr-CM/Kendo.Mvc.resources.dll": {
+            "locale": "fr-CM"
+          },
+          "lib/net8.0/fr-FR/Kendo.Mvc.resources.dll": {
+            "locale": "fr-FR"
+          },
+          "lib/net8.0/fr-HT/Kendo.Mvc.resources.dll": {
+            "locale": "fr-HT"
+          },
+          "lib/net8.0/fr-LU/Kendo.Mvc.resources.dll": {
+            "locale": "fr-LU"
+          },
+          "lib/net8.0/fr-MA/Kendo.Mvc.resources.dll": {
+            "locale": "fr-MA"
+          },
+          "lib/net8.0/fr-MC/Kendo.Mvc.resources.dll": {
+            "locale": "fr-MC"
+          },
+          "lib/net8.0/fr-ML/Kendo.Mvc.resources.dll": {
+            "locale": "fr-ML"
+          },
+          "lib/net8.0/fr-SN/Kendo.Mvc.resources.dll": {
+            "locale": "fr-SN"
+          },
+          "lib/net8.0/he-IL/Kendo.Mvc.resources.dll": {
+            "locale": "he-IL"
+          },
+          "lib/net8.0/hr-HR/Kendo.Mvc.resources.dll": {
+            "locale": "hr-HR"
+          },
+          "lib/net8.0/hu-HU/Kendo.Mvc.resources.dll": {
+            "locale": "hu-HU"
+          },
+          "lib/net8.0/hy-AM/Kendo.Mvc.resources.dll": {
+            "locale": "hy-AM"
+          },
+          "lib/net8.0/it-CH/Kendo.Mvc.resources.dll": {
+            "locale": "it-CH"
+          },
+          "lib/net8.0/it-IT/Kendo.Mvc.resources.dll": {
+            "locale": "it-IT"
+          },
+          "lib/net8.0/ja-JP/Kendo.Mvc.resources.dll": {
+            "locale": "ja-JP"
+          },
+          "lib/net8.0/mk-MK/Kendo.Mvc.resources.dll": {
+            "locale": "mk-MK"
+          },
+          "lib/net8.0/nb-NO/Kendo.Mvc.resources.dll": {
+            "locale": "nb-NO"
+          },
+          "lib/net8.0/nl-BE/Kendo.Mvc.resources.dll": {
+            "locale": "nl-BE"
+          },
+          "lib/net8.0/nl-NL/Kendo.Mvc.resources.dll": {
+            "locale": "nl-NL"
+          },
+          "lib/net8.0/pl-PL/Kendo.Mvc.resources.dll": {
+            "locale": "pl-PL"
+          },
+          "lib/net8.0/pt-BR/Kendo.Mvc.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/pt-PT/Kendo.Mvc.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/net8.0/ro-RO/Kendo.Mvc.resources.dll": {
+            "locale": "ro-RO"
+          },
+          "lib/net8.0/ru-RU/Kendo.Mvc.resources.dll": {
+            "locale": "ru-RU"
+          },
+          "lib/net8.0/sk-SK/Kendo.Mvc.resources.dll": {
+            "locale": "sk-SK"
+          },
+          "lib/net8.0/sq-AL/Kendo.Mvc.resources.dll": {
+            "locale": "sq-AL"
+          },
+          "lib/net8.0/sr-Latn-RS/Kendo.Mvc.resources.dll": {
+            "locale": "sr-Latn-RS"
+          },
+          "lib/net8.0/sv-SE/Kendo.Mvc.resources.dll": {
+            "locale": "sv-SE"
+          },
+          "lib/net8.0/tr-TR/Kendo.Mvc.resources.dll": {
+            "locale": "tr-TR"
+          },
+          "lib/net8.0/uk-UA/Kendo.Mvc.resources.dll": {
+            "locale": "uk-UA"
+          },
+          "lib/net8.0/vi-VN/Kendo.Mvc.resources.dll": {
+            "locale": "vi-VN"
+          },
+          "lib/net8.0/zh-CN/Kendo.Mvc.resources.dll": {
+            "locale": "zh-CN"
+          },
+          "lib/net8.0/zh-HK/Kendo.Mvc.resources.dll": {
+            "locale": "zh-HK"
+          },
+          "lib/net8.0/zh-TW/Kendo.Mvc.resources.dll": {
+            "locale": "zh-TW"
+          }
+        }
       }
     }
   },
@@ -1176,6 +1620,13 @@
       "path": "microsoft.build.locator/1.7.8",
       "hashPath": "microsoft.build.locator.1.7.8.nupkg.sha512"
     },
+    "Microsoft.CodeAnalysis/4.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g5eTgZVyBr4k1zxvJeVrJ1nDvBHrDt7XX2Uo7UWRoF9GdzOv9od4WtOeL1/e86ifgwX/H7H1Vs5u2OCdv0HYpQ==",
+      "path": "microsoft.codeanalysis/4.8.0",
+      "hashPath": "microsoft.codeanalysis.4.8.0.nupkg.sha512"
+    },
     "Microsoft.CodeAnalysis.Analyzers/3.3.4": {
       "type": "package",
       "serviceable": true,
@@ -1203,6 +1654,20 @@
       "sha512": "sha512-3amm4tq4Lo8/BGvg9p3BJh3S9nKq2wqCXfS7138i69TUpo/bD+XvD0hNurpEBtcNZhi1FyutiomKJqVF39ugYA==",
       "path": "microsoft.codeanalysis.csharp.workspaces/4.8.0",
       "hashPath": "microsoft.codeanalysis.csharp.workspaces.4.8.0.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.VisualBasic/4.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kfHPh/etcWypMDYfHxgfitgJMhi986OFCICb76RPcA1Toordf6bBYEJytWr2L5CNdkXFWuw5qTkrlsktBav4VA==",
+      "path": "microsoft.codeanalysis.visualbasic/4.8.0",
+      "hashPath": "microsoft.codeanalysis.visualbasic.4.8.0.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.VisualBasic.Workspaces/4.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4fNpQX8LRV0ZCfB6+rr9s61zdhNpN6Bgow/kmvsO2Gm5KtzbOUPijbUZex26wJwRHyW+ZYoatTRd449A7+D3Wg==",
+      "path": "microsoft.codeanalysis.visualbasic.workspaces/4.8.0",
+      "hashPath": "microsoft.codeanalysis.visualbasic.workspaces.4.8.0.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.Workspaces.Common/4.8.0": {
       "type": "package",
@@ -1707,6 +2172,34 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "Telerik.FontIcons/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-X0CgjF7Wuc1gfyJDI7cALJHRDHkyv5AzOyhGrTHIyw4FPfIl0Z8Je9bi8dwCu5gx1TW5ByfnFNVU0PZ2tt1Tng==",
+      "path": "telerik.fonticons/4.3.0",
+      "hashPath": "telerik.fonticons.4.3.0.nupkg.sha512"
+    },
+    "Telerik.Licensing/1.6.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iCgLLH+MWFqufhk3fJi6/4TMFtjPA8/nR198O7z11lZrrefSlErS5NFBuPapNk7DlBcrWldQQBMLWEG32foTcQ==",
+      "path": "telerik.licensing/1.6.5",
+      "hashPath": "telerik.licensing.1.6.5.nupkg.sha512"
+    },
+    "Telerik.SvgIcons/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HTNvouqTE0mRgP1br0Dz4bf/tyQVDPQtvp5Rgel05DgVJFyowiU+SNHhEIUm2id33shqTtVIUjTqidg+85EkTw==",
+      "path": "telerik.svgicons/4.3.0",
+      "hashPath": "telerik.svgicons.4.3.0.nupkg.sha512"
+    },
+    "Telerik.UI.for.AspNet.Core/2025.2.702": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KJoin4Iq1gMhdQaK+eFdOj1SI0qYE2r9GySyM3IAm06mFqEMJWukMZ2VyNmvi3gSwEywRvtY1ABV8XDTwVaj7A==",
+      "path": "telerik.ui.for.aspnet.core/2025.2.702",
+      "hashPath": "telerik.ui.for.aspnet.core.2025.2.702.nupkg.sha512"
     }
   }
 }
