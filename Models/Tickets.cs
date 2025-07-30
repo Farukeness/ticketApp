@@ -28,11 +28,9 @@ namespace ticketApp.Models
         public string CreatedByUserId { get; set; } = string.Empty;
         public AppUser? CreatedByUser { get; set; }
 
-        [Display(Name ="Atanan Geliştirici")]
-        public string? AssignedToUserId { get; set; }
-        
+        [Display(Name ="Atanan Geliştiriciler")]
 
-        public AppUser? AssignedToUser { get; set; } 
+        public ICollection<AppUser> AssignedToUsers { get; set; } = new List<AppUser>(); 
         
         public int ProjectId { get; set; }
 

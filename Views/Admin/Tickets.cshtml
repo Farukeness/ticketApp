@@ -11,7 +11,7 @@
             <td>@Html.DisplayNameFor(m => m.Tickets[0].ticketPriority)</td>
             <td>@Html.DisplayNameFor(m => m.Tickets[0].ticketStatus)</td>
             <td>@Html.DisplayNameFor(m => m.Tickets[0].CreatedAt)</td>
-            <td>@Html.DisplayNameFor(m => m.Tickets[0].AssignedToUserId)</td>
+            <td>@Html.DisplayNameFor(m => m.Tickets[0].AssignedToUsers)</td>
             
             <th></th>
         </tr>
@@ -26,22 +26,20 @@
                 <td>@ticket.Description</td>
                 <td>@ticket.ticketType</td>
                 <td>@ticket.ticketPriority</td>
-                <td>
-                    
-                        <select name="ticketStatus" id="ticketStatus">
-                            <option value="" disabled selected>Durum:@ticket.ticketStatus</option>
-                            @foreach(var opt in Enum.GetValues(typeof(TicketStatus)))
-                            {
-                                <option value="@opt">@opt</option>
-                            }
-                        </select>
-                    
-                </td>
+                <td>@ticket.ticketStatus</td>
                 <td>@ticket.CreatedAt</td>
                 <td>
                     @foreach(var opt in Model.Developers){
-                    <input type="checkbox" name="AssignedToUserId" value="@opt.Id" id="AssignedToUserId">
-                    <label for="AssignedToUserId" >@opt.UserName</label>
+                    bool isChecked = ticket.AssignedToUsers != null && 
+                    ticket.AssignedToUsers.Any(assignedDev => assignedDev.Id == opt.Id);
+                    <input type="checkbox"
+                    name="AssignedToUsers" 
+                    value="@opt.Id" 
+                    id="AssignedToUsers_@opt.Id"
+                    @(isChecked ? "checked" : "")
+                    >
+                    <label " >@opt.UserName</label>
+                    <br>
                     }
                     
                 </td>

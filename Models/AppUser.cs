@@ -4,6 +4,6 @@ namespace ticketApp.Models
 {
     public class AppUser : IdentityUser
     {
-        public string? name { get; set; }
+        public ICollection<Tickets> AssignedTickets { get; set; } = new List<Tickets>();
     }
 }

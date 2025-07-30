@@ -4,6 +4,7 @@ using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ticketApp.Data;
 using ticketApp.Models;
 
@@ -32,9 +33,21 @@ namespace ticketApp.Controllers
         public ActionResult Tickets_Read_For_Dev([DataSourceRequest] DataSourceRequest request)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var TicketList = _applicationDbContext.Tickets.Where(t => t.AssignedToUserId == userId!);
+            var ticketList = _applicationDbContext.Tickets
+                .Include(t => t.AssignedToUsers)
+                .Where(t => t.AssignedToUsers.Any(u => u.Id == userId))
+                .Select(t => new Tickets
+                {
+                    Title = t.Title,
+                    Description = t.Description,
+                    ticketType = t.ticketType,
+                    ticketPriority = t.ticketPriority,
+                    ticketStatus = t.ticketStatus,
+                    CreatedAt = t.CreatedAt
+                })
+                .AsQueryable();
 
-            return Json(TicketList.ToDataSourceResult(request));
+            return Json(ticketList.ToDataSourceResult(request));
         }
 
         public ActionResult Tickets_All([DataSourceRequest] DataSourceRequest request)
