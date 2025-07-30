@@ -33,7 +33,7 @@ namespace ticketApp.Models
         
 
         public AppUser? AssignedToUser { get; set; } 
-        //public ICollection<TicketAssigments> Assigments { get; set; } = new List<TicketAssigments>();
+        
         public int ProjectId { get; set; }
 
 }

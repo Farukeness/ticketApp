@@ -3,37 +3,23 @@
     Layout = "~/Views/Shared/_developerLayout.cshtml";
 }
 
-<table class="table table-sm table-bordered" >
-    <thead>
-        <tr>
-            <td>@Html.DisplayNameFor(m => m.Title)</td>
-            <td>@Html.DisplayNameFor(m => m.Description)</td>
-            <td>@Html.DisplayNameFor(m => m.ticketType)</td>
-            <td>@Html.DisplayNameFor(m => m.ticketPriority)</td>
-            <td>@Html.DisplayNameFor(m => m.ticketStatus)</td>
-            <td>@Html.DisplayNameFor(m => m.CreatedAt)</td>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        
-        @foreach(var ticket in Model){
-            <form asp-action="Edit"  method="get">
-                <input type="hidden" value="@ticket.Id" name="Id">
-            <tr>
-                <td>@ticket.Title</td>
-                <td>@ticket.Description</td>
-                <td>@ticket.ticketType</td>
-                <td>@ticket.ticketPriority</td>
-                <td>@ticket.ticketStatus</td>
-                <td>@ticket.CreatedAt</td>
-                <td>
-                    <button class="btn btn-primary" asp-action="Detail" asp-controller="Developer"  asp-route-id ="@ticket.Id" type="submit">Detay</button>
-                </td>
-            </tr>
-            </form>
-        }
-        
-    </tbody>
+
+@(Html.Kendo().Grid<ticketApp.Models.Tickets>().Name("Grid_dev").Columns(columns => {
+    columns.Bound(p => p.Title).HtmlAttributes(new {style = "color:blue;"})
+    .ClientTemplate("<a href='" + Url.Action("Detail", "Developer", new { id = "#=Id#" }) + "'>#=Title#</a>");
+    columns.Bound(p => p.Description);
+    columns.Bound(p => p.ticketType);
+    columns.Bound(p => p.ticketPriority);
+    columns.Bound(p => p.ticketStatus);
+    columns.Bound(p => p.CreatedAt).Format("{0:dd/MM/yyyy HH:mm}");
+    })
+    .Pageable()
+    .Sortable()
+    .Filterable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .AutoSync(true)
+    .Read(read => read.Action("Tickets_Read_For_Dev","Grid"))
     
-</table>
+    ))

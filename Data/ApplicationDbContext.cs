@@ -14,7 +14,7 @@ namespace ticketApp.Data
         public DbSet<Projects> Projects { get; set; }
         //public DbSet<TicketAssigments> TicketAssigments { get; set; }
 
-
+        
         
     }
 }

@@ -25,10 +25,7 @@ namespace ticketApp.Controllers
 
         public IActionResult Index()
         {
-            var devId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var tickets = _applicationDbContext.Tickets.Where(t => t.AssignedToUserId == devId);
-
-            return View(tickets);
+            return View();
         }
         [HttpGet]
         public async Task<IActionResult> Detail(int? Id)
