@@ -1,0 +1,57 @@
+@{
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+<h2>Burada istatistikler Görüncek</h2>
+<hr>
+<div class="row">
+    <div class="col-8">
+        <h2>Burası grafik</h2>
+        <div class="demo-section wide">
+    @(Html.Kendo().Chart()
+    .Name("chart")
+    .Legend(legend => legend
+        .Position(ChartLegendPosition.Bottom)
+        .FocusHighlight(f=>f.Border(b=>b
+           .Width(3)
+           .Color("brown")
+           .DashType(ChartDashType.Solid)
+           .Opacity(0.7)
+        ))
+    )
+    .SeriesDefaults(s => s.Donut()
+    .Labels(l=>l.Visible(true).Padding(13))
+    .FocusHighlight(f =>
+       f.Border(b => b
+        .Width(4)
+        .Color("green")
+        .DashType(ChartDashType.LongDash)
+        .Opacity(0.7)
+       )
+    ))
+    
+    .Series(series => {
+        series.Donut(new dynamic[] {
+            new {category = "Açık",value = ViewBag.CountOpen},
+            new {category = "Kapalı",value = ViewBag.CountClose},
+            
+        })
+        .Labels(labels => labels
+            .Visible(true)
+            .Template("#= category # : #= value #")
+            .Color("#fff")
+            .Background("none")
+        );
+    })
+)
+
+</div>
+    </div>
+    <div class="col-4">
+        <h2>Burası sayılar</h2>
+        <p>Toplam Ticket Sayısı:@ViewBag.Count</p>
+        <p>Çözülen Ticket Sayısı:@ViewBag.CountClose</p>
+        <p>Bekleyen Ticket Sayısı:@ViewBag.CountOpen</p>
+    </div>
+</div>
+

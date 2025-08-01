@@ -1,5 +1,46 @@
-﻿
+﻿@model LoginViewModel
 @{
 ViewData["Title"] = "Home Page";
 }
-<h1>Anasayfa</h1>
+<div class="row">
+    <div class="col-8">
+        <span>Yaşadığınız problemleri,tavsiyelerinizi yada sorularınızı giriş yaparak bizlere iletebilirsiniz </span>
+        <br>
+        <br>
+        <span>Henüz üye değilseniz kayıt ol diyerek sitemize kayıt olabilirsiniz</span>
+        <br>
+        <br>
+        <img style="width: 600px;" src="https://www.socialbusinesstr.com/tr/images/blog/gelecegin-musteri-hizmetleri-blog-2.jpg" alt="">
+        
+    </div>
+    <div class="col-4">
+        <form asp-controller="Account" asp-action="Login" method="post">
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Email"></label>
+                <input class="form-control" asp-for="Email" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Password"></label>
+                <input class="form-control" asp-for="Password" >
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" asp-for="RememberMe" >
+                <label class="form-check-label" asp-for="RememberMe"></label>
+            </div>
+            
+            <div class="row">
+                <button class="btn btn-primary" type="submit" >Giriş</button>
+                
+            </div>
+            <br>
+            <div class="row">
+               
+                <a class="btn btn-primary" style="background-color: rgb(40, 215, 5);" asp-controller="Account" asp-action="Create">Kayıt Ol</a>
+            </div>
+            
+        </form>
+
+        
+    </div>
+</div>

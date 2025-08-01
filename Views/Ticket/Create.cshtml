@@ -14,7 +14,7 @@
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="@Model.ticketType"></label>
-        <select asp-for="@Model.ticketType" >
+        <select class="form-select" asp-for="@Model.ticketType" >
             <option value="" disabled selected>Tip seçiniz</option>
             @foreach(var opt in Enum.GetValues(typeof(TicketType))){
                 <option value="@opt">@opt</option>
@@ -24,7 +24,7 @@
 
     <div class="mb-3">
         <label class="form-label" asp-for="@Model.ticketPriority"></label>
-        <select asp-for="@Model.ticketPriority" >
+        <select class="form-select" asp-for="@Model.ticketPriority" >
             <option value="" disabled selected>Öncelik seçiniz</option>
             @foreach(var opt in Enum.GetValues(typeof(TicketPriority))){
                 <option value="@opt">@opt</option>

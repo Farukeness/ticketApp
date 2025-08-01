@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Kendo.Mvc.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,21 @@ namespace ticketApp.Controllers
         {
             return View(_userManager.Users);
         }
+
+        public IActionResult Statistic()
+        {
+            
+            ViewBag.Count = _applicationDbContext.Tickets.Count();
+            ViewBag.CountOpen =_applicationDbContext.Tickets.Where(t => t.ticketStatus == TicketStatus.Acik).Count();
+            ViewBag.CountClose =_applicationDbContext.Tickets.Where(t => t.ticketStatus == TicketStatus.Kapatildi).Count();
+            
+           
+
+            return View();
+        }
+        
+        
+
         public async Task<IActionResult> Tickets()
         {
             var devName = "Developer";

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ticketApp.Data;
 using ticketApp.Models;
 using Kendo.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

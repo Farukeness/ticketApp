@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ticketApp.Data;
+using ticketApp.Enums;
 using ticketApp.Models;
 
 namespace ticketApp.Controllers
@@ -38,6 +39,7 @@ namespace ticketApp.Controllers
                 .Where(t => t.AssignedToUsers.Any(u => u.Id == userId))
                 .Select(t => new Tickets
                 {
+                    Id = t.Id,
                     Title = t.Title,
                     Description = t.Description,
                     ticketType = t.ticketType,
@@ -49,6 +51,7 @@ namespace ticketApp.Controllers
 
             return Json(ticketList.ToDataSourceResult(request));
         }
+        
 
         public ActionResult Tickets_All([DataSourceRequest] DataSourceRequest request)
         {
