@@ -2,28 +2,36 @@
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
-@model IEnumerable<AppUser>
-<table class="table table-sm table-bordered" >
-    <thead>
-        <tr>
-            <td >Kullanıcı Kimliği</td>
-            <td>İsim</td>
-            <td>Eposta</td>
-            
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var user in Model){
-            <tr>
-                <td>@user.Id</td>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                
-                <td>
-                    <a asp-controller="Admin" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary btn-sm" >Düzenle</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@(Html.Kendo().Grid<ticketApp.ViewModel.UserGridModel>().Name("UserGrid")
+    
+    .Columns(columns => {
+        columns.Bound(c => c.UserName).Title("İsim");
+        columns.Bound(c => c.Email).Title("E Posta").Width(120);
+        columns.Bound(c => c.CurrentRole).Title("Rol").EditorTemplateName("RoleDropdown").Width(300);
+        
+        columns.Template("<a href='Admin/Edit/#=Id#' class='btn btn-primary'>Detay</a>").Title("Detay").HtmlAttributes(new {style ="color:white"});
+               
+    })
+    
+    .Editable(editable => editable.Mode(GridEditMode.InCell))
+    .Pageable()
+    .Sortable()
+    .Filterable()
+    .Resizable(r=>r.Columns(true))
+    .Reorderable(r => r.Columns(true))
+    
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .AutoSync(true)
+    .Batch(false)
+    .Model(model => {
+        model.Id(p => p.Id);
+        model.Field(p => p.UserName).Editable(false);
+        model.Field(p => p.Email).Editable(false);
+        model.Field(p => p.CurrentRole).Editable(true).DefaultValue("Seçiniz");
+    })
+    
+    .Read(read => read.Action("Users","Grid"))
+    .Update(update => update.Action("UpdateUserRole","Grid"))
+    ))
+

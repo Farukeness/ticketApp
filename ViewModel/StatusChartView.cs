@@ -4,8 +4,11 @@ namespace ticketApp.Models
 {
     public class StatusChartView
     {
+
         
-        public int OpenTicket { get; set; }
-        public int CloseTicket { get; set; }
+        
+        public int TotalTicket { get; set; }
+        public float OpenTicket { get; set; }
+        public float CloseTicket { get; set; }
     }
 }

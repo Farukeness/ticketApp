@@ -35,34 +35,65 @@ namespace ticketApp.Controllers
 
         public IActionResult Index()
         {
-            return View(_userManager.Users);
+            
+            return View();
+        }
+        public async Task<IActionResult> TicketEdit(int Id)
+        {
+            try
+            {
+                var devName = "Developer";
+                var devList = await _userManager.GetUsersInRoleAsync(devName);
+                var ticket = await _applicationDbContext.Tickets
+                    .Include(t => t.AssignedToUsers)
+                    .FirstOrDefaultAsync(t => t.Id == Id);
+
+                if (ticket == null)
+                {
+                    return Json(new { success = false, message = "Ticket bulunamadı" });
+                }
+
+                var developersWithStatus = devList.Select(dev => new
+                {
+                    id = dev.Id,
+                    userName = dev.UserName,
+                    isAssigned = ticket.AssignedToUsers.Any(assigned => assigned.Id == dev.Id)
+                }).ToList();
+
+                return Json(new { 
+                    success = true, 
+                    developers = developersWithStatus 
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
         public IActionResult Statistic()
         {
-            
-            ViewBag.Count = _applicationDbContext.Tickets.Count();
-            ViewBag.CountOpen =_applicationDbContext.Tickets.Where(t => t.ticketStatus == TicketStatus.Acik).Count();
-            ViewBag.CountClose =_applicationDbContext.Tickets.Where(t => t.ticketStatus == TicketStatus.Kapatildi).Count();
-            
-           
 
-            return View();
+            var _total = _applicationDbContext.Tickets.Count();
+            float _open= _applicationDbContext.Tickets.Where(t => t.ticketStatus == TicketStatus.Acik).Count();
+            float _close = _applicationDbContext.Tickets.Where(t => t.ticketStatus == TicketStatus.Kapatildi).Count();
+            var model = new StatusChartView
+            {
+                TotalTicket = _total,
+                OpenTicket = _open,
+                CloseTicket = _close
+            };
+
+
+
+            return View(model);
         }
         
         
 
         public async Task<IActionResult> Tickets()
         {
-            var devName = "Developer";
-            var devList = await _userManager.GetUsersInRoleAsync(devName);
-            var model = new TicketListViewModel
-            {
-                Tickets = _applicationDbContext.Tickets.Include(t => t.AssignedToUsers).ToList(),
-                Developers = devList.ToList()
-            };
-
-            return View(model);
+            return View();
         }
 
         public async Task<IActionResult> Edit(string id)
@@ -102,6 +133,8 @@ namespace ticketApp.Controllers
             return View(model);
 
         }
+
+
         [HttpPost]
         public async Task<IActionResult> EditAssigned(
         [Bind("Id,ticketStatus")] Tickets tickets, 

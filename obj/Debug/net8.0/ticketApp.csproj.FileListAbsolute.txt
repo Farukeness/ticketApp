@@ -306,3 +306,6 @@ C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\ne
 C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\net8.0\zh-CN\Kendo.Mvc.resources.dll
 C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\net8.0\zh-HK\Kendo.Mvc.resources.dll
 C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\net8.0\zh-TW\Kendo.Mvc.resources.dll
+C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\net8.0\AspNetCoreHero.ToastNotification.Views.dll
+C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\net8.0\AspNetCoreHero.ToastNotification.dll
+C:\Users\Faruk Enes Zan\OneDrive\Belgeler\MyProjects\.Net\ticketApp\bin\Debug\net8.0\Newtonsoft.Json.dll

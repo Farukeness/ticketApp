@@ -10,6 +10,8 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartAttribute("AspNetCoreHero.ToastNotification")]
+[assembly: Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartAttribute("AspNetCoreHero.ToastNotification.Views")]
 [assembly: Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartAttribute("Kendo.Mvc")]
 
 // MSBuild WriteCodeFragment sınıfı tarafından oluşturuldu.

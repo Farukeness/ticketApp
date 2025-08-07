@@ -5,13 +5,14 @@
 
 
 @(Html.Kendo().Grid<ticketApp.Models.Tickets>().Name("Grid_dev").Columns(columns => {
-    columns.Bound(p => p.Title).HtmlAttributes(new {style = "color:blue;"})
-    .ClientTemplate("<a href='" + Url.Action("Detail", "Developer", new { id = "#=Id#" }) + "'>#=Title#</a>");
+    columns.Bound(p => p.Title);
     columns.Bound(p => p.Description);
     columns.Bound(p => p.ticketType);
     columns.Bound(p => p.ticketPriority);
     columns.Bound(p => p.ticketStatus);
     columns.Bound(p => p.CreatedAt).Format("{0:dd/MM/yyyy HH:mm}");
+    columns.Template("<a class='btn btn-primary' href='Developer/Detail/#=Id#'>Detay</a>").Title("Detay")
+    .HtmlAttributes(new {style = "color:white;"});
     })
     .Pageable()
     .Sortable()
@@ -21,5 +22,6 @@
     .Ajax()
     .AutoSync(true)
     .Read(read => read.Action("Tickets_Read_For_Dev","Grid"))
+    .Sort(s => s.Add(p => p.CreatedAt).Descending())
     
     ))

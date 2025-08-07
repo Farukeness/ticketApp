@@ -4,7 +4,7 @@ namespace ticketApp.ViewModel
 {
     public class TicketListViewModel
     {
-        public List<Tickets> Tickets { get; set; } = new List<Tickets>();
+        public Tickets? Ticket { get; set; } 
         public List<AppUser> Developers { get; set; } = new List<AppUser>();
     }
 }

@@ -4,9 +4,11 @@ public class LoginViewModel
 {
     [Required]
     [EmailAddress]
+    [Display(Name ="Kullanıcı İsmi")]
     public string Email { get; set; } = string.Empty;
 
     [Required]
+    [Display(Name ="Şifre")]
     [DataType(DataType.Password)]
     public string Password { get; set; } = string.Empty;
 

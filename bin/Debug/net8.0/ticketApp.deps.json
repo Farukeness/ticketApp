@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "ticketApp/1.0.0": {
         "dependencies": {
+          "AspNetCoreHero.ToastNotification": "1.1.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.7",
           "Microsoft.EntityFrameworkCore.Design": "9.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.7",
@@ -17,6 +18,21 @@
         },
         "runtime": {
           "ticketApp.dll": {}
+        }
+      },
+      "AspNetCoreHero.ToastNotification/1.1.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/net5.0/AspNetCoreHero.ToastNotification.Views.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
+          },
+          "lib/net5.0/AspNetCoreHero.ToastNotification.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
+          }
         }
       },
       "Azure.Core/1.38.0": {
@@ -915,6 +931,14 @@
           }
         }
       },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        }
+      },
       "NUPKG/1.0.0": {
         "runtime": {
           "lib/netstandard2.0/NUPKG.dll": {
@@ -1557,6 +1581,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AspNetCoreHero.ToastNotification/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bCAYeD+b2pRelcOrHMNtYGVtRq+J2u+SAaND33v3u6qZCatHf4XSZOEPhBfCKJAjMGvsggtPKaNFnrv4VhwOfA==",
+      "path": "aspnetcorehero.toastnotification/1.1.0",
+      "hashPath": "aspnetcorehero.toastnotification.1.1.0.nupkg.sha512"
+    },
     "Azure.Core/1.38.0": {
       "type": "package",
       "serviceable": true,
@@ -1927,6 +1958,13 @@
       "sha512": "sha512-YqueG52R/Xej4VVbKuRIodjiAhV0HR/XVbLbNrJhCZnzjnSjgMJ/dCdV0akQQxavX6hp/LC6rqLGLcXeQYU7XA==",
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "NUPKG/1.0.0": {
       "type": "package",

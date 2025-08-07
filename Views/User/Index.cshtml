@@ -9,16 +9,15 @@ ViewData["Title"] = "Tickets";
 
 <section class="jumbotron text-center">
 @(Html.Kendo().Grid<ticketApp.Models.Tickets>().Name("TicketsGrid").Columns(columns => {
-    columns.Bound(c => c.Id);
-    columns.Bound(c => c.Title)
-    .HtmlAttributes(new {style = "color:blue;"})
-    .ClientTemplate("<a href='" + Url.Action("Detail", "User", new { id = "#=Id#" }) + "'>#=Title#</a>");
+    columns.Bound(c => c.Id).Hidden();
+    columns.Bound(c => c.Title);
+    
     columns.Bound(c => c.Description);
     columns.Bound(c => c.ticketType);
     columns.Bound(c => c.ticketPriority);
     columns.Bound(c => c.ticketStatus);
     columns.Bound(c => c.CreatedAt).Format("{0:dd/MM/yyyy HH:mm}");
-    
+    columns.Template("<a style='width:120px;' class='btn btn-primary' href='User/Detail/#=Id#' >Detay</a>").HtmlAttributes(new {style = "color:white"});
     
     }).Pageable()
     .Sortable()
@@ -29,6 +28,7 @@ ViewData["Title"] = "Tickets";
     .DataSource(dataSource => dataSource
     .Ajax()
     .Read(read => read.Action("Tickets_Read","Grid"))
+    .Sort(s => s.Add(p => p.CreatedAt).Descending())
     ))
 </section>
 

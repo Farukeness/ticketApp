@@ -2,54 +2,97 @@
 @{
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
-<table class="table table-sm table-bordered" >
-    <thead>
-        <tr>
-            <td>@Html.DisplayNameFor(m => m.Tickets[0].Title)</td>
-            <td>@Html.DisplayNameFor(m => m.Tickets[0].Description)</td>
-            <td>@Html.DisplayNameFor(m => m.Tickets[0].ticketType)</td>
-            <td>@Html.DisplayNameFor(m => m.Tickets[0].ticketPriority)</td>
-            <td>@Html.DisplayNameFor(m => m.Tickets[0].ticketStatus)</td>
-            <td>@Html.DisplayNameFor(m => m.Tickets[0].CreatedAt)</td>
-            <td>@Html.DisplayNameFor(m => m.Tickets[0].AssignedToUsers)</td>
-            
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        
-        @foreach(var ticket in Model.Tickets){
-            <form asp-action="EditAssigned"  method="post">
-                <input type="hidden" value="@ticket.Id" name="Id">
-            <tr>
-                <td>@ticket.Title</td>
-                <td>@ticket.Description</td>
-                <td>@ticket.ticketType</td>
-                <td>@ticket.ticketPriority</td>
-                <td>@ticket.ticketStatus</td>
-                <td>@ticket.CreatedAt</td>
-                <td>
-                    @foreach(var opt in Model.Developers){
-                    bool isChecked = ticket.AssignedToUsers != null && 
-                    ticket.AssignedToUsers.Any(assignedDev => assignedDev.Id == opt.Id);
-                    <input type="checkbox"
-                    name="AssignedToUsers" 
-                    value="@opt.Id" 
-                    id="AssignedToUsers_@opt.Id"
-                    @(isChecked ? "checked" : "")
-                    >
-                    <label " >@opt.UserName</label>
-                    <br>
-                    }
+
+
+@(Html.Kendo().Grid<ticketApp.Models.Tickets>().Name("AdminTickets")
+    .Columns(columns => {
+        columns.Bound(c => c.Title);
+        columns.Bound(c => c.Description);
+        columns.Bound(c => c.ticketType);
+        columns.Bound(c => c.ticketPriority);
+        columns.Bound(c => c.ticketStatus);
+        columns.Bound(c => c.CreatedAt).Format("{0:dd//MM/yyyy HH:mm}");
+        columns.Template("<button type='button' class='btn btn-primary' onclick='openModal(#=Id#)'>Geliştirici Ata</button>").Title("Geliştirici").HtmlAttributes(new {style ="color:white"});
+    }).Pageable()
+    .Sortable()
+    .Navigatable()
+    .Filterable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Read(read => read.Action("Tickets_All","Grid"))
+    .Sort(s => s.Add(p => p.CreatedAt).Descending())
+    ))
+
+
+
+<div class="modal fade "  tabindex="-1" id="myModal" aria-hidden="true" data-bs-backdrop="static" >
+    <div class="modal-dialog modal-dialog-scrollable">
+        <form asp-action="EditAssigned"  method="post">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >Geliştiriciler</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="ticketId" name="Id" value="">
+                <div id="developersList">
                     
-                </td>
-                <td>
-                    <button class="btn btn-primary" type="submit">Kaydet</button>
-                </td>
-            </tr>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" >İptal</button>
+                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" >Onayla</button>
+                
+            </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function openModal(ticketId) {
+    document.getElementById('ticketId').value = ticketId;
+    var modal = new bootstrap.Modal(document.getElementById('myModal'));
+    modal.show();
+    loadDevelopers(ticketId);
+}
+
+function loadDevelopers(ticketId) {
+    fetch('/Admin/TicketEdit/' + ticketId)
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            var developersList = document.getElementById('developersList');
+            developersList.innerHTML = '';
+            
+            data.developers.forEach(function(developer) {
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'AssignedToUsers';
+                checkbox.value = developer.id;
+                checkbox.id = 'AssignedToUsers_' + developer.id;
+                if (developer.isAssigned) {
+                    checkbox.checked = true;
+                }
+                
+                var label = document.createElement('label');
+                label.htmlFor = 'AssignedToUsers_' + developer.id;
+                label.textContent = developer.userName;
+                label.style.marginLeft = '10px';
+                
+                var br = document.createElement('br');
+                
+                developersList.appendChild(checkbox);
+                developersList.appendChild(label);
+                developersList.appendChild(br);
+            });
+        } else {
+            console.error('Geliştiriciler yüklenemedi:', data.message);
         }
-        
-    </tbody>
-    
-</table>
+    })
+    .catch(error => {
+        console.error('Geliştiriciler yüklenirken hata:', error);
+    });
+}
+</script>
