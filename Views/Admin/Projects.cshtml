@@ -1,0 +1,50 @@
+@{
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+@(Html.Kendo().Grid<ticketApp.Models.Projects>().Name("Projects")
+    .Columns(column => {
+        column.Bound(c => c.Name);
+        column.Bound(c => c.Description);
+        column.Bound(c => c.CreatedAt).Format("{0:dd/MM/yyyy HH:mm}");
+        column.Bound(c => c.CreatedByUserId).Filterable(f => f.Multi(true).Search(true));
+        column.Command(c => {c.Edit(); c.Destroy();});
+    })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .Sortable()
+    .Filterable()
+    .Resizable(r=>r.Columns(true))
+    .Reorderable(r => r.Columns(true))
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    
+    .Model(model => {
+        model.Id(p => p.Id);
+        model.Field(p => p.CreatedByUserId).Editable(false);
+        model.Field(p => p.CreatedAt).Editable(false);
+    })
+    .Destroy(destroy => destroy.Action("DeleteProject", "Grid"))
+    .Read(read => read.Action("Projects","Grid"))
+    .Update(update => update.Action("UpdateProject","Grid"))
+    .Create(create => create.Action("AddProject","Grid"))
+    .Events(events => events.RequestEnd("onRequestEnd"))
+    )
+    )
+
+
+
+<script>
+function onRequestEnd(e) {
+    if (e.type === "update" && e.response) {
+        toastr.success("Başarıyla güncellendi!");
+    }
+
+
+    if (e.type === "create" && e.response) {
+        toastr.success("Başarıyla Eklendi");
+    }
+    
+}
+</script>

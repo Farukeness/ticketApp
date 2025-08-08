@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ticketApp.styles.css" asp-append-version="true" />
     <link href="https://kendo.cdn.telerik.com/themes/11.0.2/default/default-ocean-blue.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
 	<script src="https://cdn.kendostatic.com/2025.2.702/js/kendo.all.min.js"></script>
 	<script src="https://cdn.kendostatic.com/2025.2.702/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body>
     <header>
@@ -32,6 +34,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Statistic">İstatistikler</a>
+                        </li>
+                        <li class="nav-item"></li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Projects">Projeler</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">

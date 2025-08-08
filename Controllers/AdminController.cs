@@ -89,9 +89,12 @@ namespace ticketApp.Controllers
             return View(model);
         }
         
-        
+        public IActionResult Projects()
+        {
+            return View();
+        }
 
-        public async Task<IActionResult> Tickets()
+        public IActionResult Tickets()
         {
             return View();
         }
@@ -112,27 +115,7 @@ namespace ticketApp.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(AdminEditModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (model.UserId != null)
-                {
-                    var user = await _userManager.FindByIdAsync(model.UserId);
-                    if (user == null) { return NotFound(); }
-                    var currentRole = await _userManager.GetRolesAsync(user);
-                    if (currentRole.Any())
-                        await _userManager.RemoveFromRolesAsync(user, currentRole);
-                    if (model.SelectedRole != null)
-                        await _userManager.AddToRoleAsync(user, model.SelectedRole);
-                    return RedirectToAction("Index");
-                }
-
-            }
-            return View(model);
-
-        }
+        
 
 
         [HttpPost]

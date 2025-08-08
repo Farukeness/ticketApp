@@ -1,12 +1,12 @@
+@model string
 @{
     var roles = new[] { "Admin", "Developer", "User" };
 }
-@(Html.Kendo().DropDownList()
-.Name("CurrentRole")
-.DataTextField("text")
-.DataValueField("value")
-.BindTo(roles.Select(r => new { text = r, value = r }))
-.HtmlAttributes(new { style = "width:100%" })
+@(Html.Kendo().DropDownListFor(m => m)
+    .DataTextField("text")
+    .DataValueField("value")
+    .BindTo(roles.Select(r => new{ text = r, value = r}))
+    .HtmlAttributes(new { style = "width:100%" })
 )
 
 

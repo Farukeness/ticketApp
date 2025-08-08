@@ -32,16 +32,12 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Account/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Admin/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Admin/Projects.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvamVjdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Admin/Statistic.cshtml]
@@ -66,6 +62,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/EditorTemplates/RoleDropdown.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRvclRlbXBsYXRlc1xSb2xlRHJvcGRvd24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/EditorTemplates/ticketPriority.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRvclRlbXBsYXRlc1x0aWNrZXRQcmlvcml0eS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/EditorTemplates/ticketType.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRvclRlbXBsYXRlc1x0aWNrZXRUeXBlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/Error.cshtml]

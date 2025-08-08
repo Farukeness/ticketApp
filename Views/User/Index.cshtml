@@ -13,23 +13,78 @@ ViewData["Title"] = "Tickets";
     columns.Bound(c => c.Title);
     
     columns.Bound(c => c.Description);
-    columns.Bound(c => c.ticketType);
-    columns.Bound(c => c.ticketPriority);
-    columns.Bound(c => c.ticketStatus);
+    columns.Bound(c => c.ticketType).Filterable(f => f.Multi(true).Search(true));
+    columns.Bound(c => c.ticketPriority).EditorTemplateName("ticketPriority").Filterable(f => f.Multi(true).Search(true));
+    columns.Bound(c => c.ticketStatus).ClientTemplate("<span id='badge_#=ticketStatus#' class='badgeTemplate' ></span>");
     columns.Bound(c => c.CreatedAt).Format("{0:dd/MM/yyyy HH:mm}");
     columns.Template("<a style='width:120px;' class='btn btn-primary' href='User/Detail/#=Id#' >Detay</a>").HtmlAttributes(new {style = "color:white"});
-    
-    }).Pageable()
+    columns.Command(command => { command.Edit();}).Width(200);
+    })
+    .Editable(editable => editable.Mode(GridEditMode.InLine).ConfirmDelete("Bu kaydı silmek istiyor musunuz?").DisplayDeleteConfirmation("Bu kaydı silmek istiyor musunuz?"))
+    .Pageable()
     .Sortable()
     .Filterable()
     .Navigatable()
     .Filterable()
     .Scrollable()
+    .Events(events => 
+        events.DataBound("onDataBound"))
     .DataSource(dataSource => dataSource
     .Ajax()
+    .Events(events => events.RequestEnd("onRequestEnd"))
+    .Model(model => {
+        model.Id(p => p.Id);
+        model.Field(p => p.CreatedAt).Editable(false);
+        model.Field(p => p.ticketStatus).Editable(false);
+    })
+    .Update(update => update.Action("EditUserInline", "Grid"))
     .Read(read => read.Action("Tickets_Read","Grid"))
     .Sort(s => s.Add(p => p.CreatedAt).Descending())
     ))
 </section>
 
 
+<style>
+.k-badge {
+    font-size: 14px !important;
+    padding: 6px 12px !important;
+    font-weight: 500 !important;
+}
+
+.large-badge {
+    font-size: 16px !important;
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+}
+</style>
+
+<script>
+    function onDataBound(e) {
+        var grid = this;
+        grid.table.find("tr").each(function () {
+            var dataItem = grid.dataItem(this);
+            var themeColor = dataItem.ticketStatus ? 'error' : 'success';
+            var text = dataItem.ticketStatus ? 'Kapalı' : 'Açık';
+
+            $(this).find('script').each(function () {
+                eval($(this).html());
+            });
+
+                    $(this).find(".badgeTemplate").kendoBadge({
+            themeColor: themeColor,
+            text: text,
+            cssClass: "large-badge"
+        });
+
+
+            kendo.bind($(this), dataItem);
+        });
+    }
+
+function onRequestEnd(e) {
+    if (e.type === "update" && e.response) {
+        toastr.success("Başarıyla güncellendi!");
+    }
+    
+}
+</script>

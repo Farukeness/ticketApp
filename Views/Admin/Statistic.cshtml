@@ -24,8 +24,8 @@
         
         .Series(series => {
             series.Pie(new dynamic[] {
-                new {category="Açık",value=@Math.Round((double)Model.OpenTicket/Model.TotalTicket *100),color="#FF0000"},
-                new {category="Kapalı",value=@Math.Round((double)Model.CloseTicket/Model.TotalTicket*100),color="#28a745"},
+                new {category="Açık",value=@Math.Round((double)Model.OpenTicket/Model.TotalTicket *100),color="#28a745"},
+                new {category="Kapalı",value=@Math.Round((double)Model.CloseTicket/Model.TotalTicket*100),color="#FF0000"},
                 
                 
             })

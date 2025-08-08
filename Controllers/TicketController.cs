@@ -24,6 +24,7 @@ namespace ticketApp.Controllers
         }
         public IActionResult Create()
         {
+            ViewBag.Projects = _applicationDbContext.Projects.ToList();
             return View();
         }
 
@@ -42,10 +43,12 @@ namespace ticketApp.Controllers
                     ticketStatus = TicketStatus.Acik,
                     CreatedAt = DateTime.Now,
                     CreatedByUserId = userId,
+                    ProjectId = model.ProjectId
 
                 };
                 _applicationDbContext.Tickets.Add(_ticket);
                 await _applicationDbContext.SaveChangesAsync();
+                TempData["success"] = "Başarıyla eklendi.";
                 return RedirectToAction("Index", "User");
             }
             return View(model);

@@ -1,0 +1,14 @@
+@model int 
+
+@{
+    var types = Enum.GetValues(typeof(TicketType))
+                                .Cast<TicketType>()
+                                .Select(p => new { text = p.ToString(), value = (int)p});
+}
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .DataTextField("text")
+    .DataValueField("value")
+    .BindTo(types)
+    .HtmlAttributes(new { style = "width:100%" })
+)

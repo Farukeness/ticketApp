@@ -21,43 +21,8 @@ namespace ticketApp.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user != null)
-                {
-                    await _signInManager.SignOutAsync();
-                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-                    if (result.Succeeded)
-                    {
-                        
-                        var roles = await _userManager.GetRolesAsync(user);
-                        var rol = roles.FirstOrDefault();
-                        if (rol == "Admin"){return RedirectToAction("Index", "Admin");}
-                        if (rol == "Developer"){return RedirectToAction("Index", "Developer");}
-                        if (rol == "User"){return RedirectToAction("Index", "User");}
-                        
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Hatalı  Parola");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Hatalı Email");
-                }
-            }
-            return View(model);
-        }
+        
+        
 
         public IActionResult Create()
         {
@@ -90,7 +55,7 @@ namespace ticketApp.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

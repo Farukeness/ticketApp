@@ -7,8 +7,9 @@ namespace ticketApp.Models
     public class Tickets
     {
         public int Id { get; set; }
-        [Required]
-        [Display(Name="Başlık")]
+        
+        [Display(Name = "Başlık")]
+        [Required(ErrorMessage ="Başlık alanı girmek zorunludur")]
         public string Title { get; set; } = string.Empty;
         [Display(Name="Açıklama")]
         public string? Description { get; set; }
@@ -31,7 +32,8 @@ namespace ticketApp.Models
         [Display(Name ="Atanan Geliştiriciler")]
 
         public ICollection<AppUser> AssignedToUsers { get; set; } = new List<AppUser>(); 
-        
+
+        [Display(Name ="Proje Türü")]
         public int ProjectId { get; set; }
 
 }

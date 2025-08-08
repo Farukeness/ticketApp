@@ -9,7 +9,7 @@
     columns.Bound(p => p.Description);
     columns.Bound(p => p.ticketType);
     columns.Bound(p => p.ticketPriority);
-    columns.Bound(p => p.ticketStatus);
+    columns.Bound(p => p.ticketStatus).ClientTemplate("<span id='badge_#=ticketStatus#' class='badgeTemplate' ></span>");
     columns.Bound(p => p.CreatedAt).Format("{0:dd/MM/yyyy HH:mm}");
     columns.Template("<a class='btn btn-primary' href='Developer/Detail/#=Id#'>Detay</a>").Title("Detay")
     .HtmlAttributes(new {style = "color:white;"});
@@ -18,6 +18,7 @@
     .Sortable()
     .Filterable()
     .Scrollable()
+    .Events(events => events.DataBound("onDataBound"))
     .DataSource(dataSource => dataSource
     .Ajax()
     .AutoSync(true)
@@ -25,3 +26,42 @@
     .Sort(s => s.Add(p => p.CreatedAt).Descending())
     
     ))
+<style>
+.k-badge {
+    font-size: 14px !important;
+    padding: 6px 12px !important;
+    font-weight: 500 !important;
+}
+
+.large-badge {
+    font-size: 16px !important;
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+}
+</style>
+
+<script>
+    function onDataBound(e) {
+        var grid = this;
+        grid.table.find("tr").each(function () {
+            var dataItem = grid.dataItem(this);
+            var themeColor = dataItem.ticketStatus ? 'error' : 'success';
+            var text = dataItem.ticketStatus ? 'Kapalı' : 'Açık';
+
+            $(this).find('script').each(function () {
+                eval($(this).html());
+            });
+
+                    $(this).find(".badgeTemplate").kendoBadge({
+            themeColor: themeColor,
+            text: text,
+            cssClass: "large-badge"
+        });
+
+
+            kendo.bind($(this), dataItem);
+        });
+    }
+
+toastr.success("sdkfj")
+</script>

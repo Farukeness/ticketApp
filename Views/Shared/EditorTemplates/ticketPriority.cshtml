@@ -1,0 +1,14 @@
+@model int 
+
+@{
+    var piriorities = Enum.GetValues(typeof(TicketPriority))
+                                .Cast<TicketPriority>()
+                                .Select(p => new { text = p.ToString(), value = (int)p});
+}
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .DataTextField("text")
+    .DataValueField("value")
+    .BindTo(piriorities)
+    .HtmlAttributes(new { style = "width:100%" })
+)

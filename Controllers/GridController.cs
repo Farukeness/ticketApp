@@ -84,47 +84,166 @@ namespace ticketApp.Controllers
             return Json(model.ToDataSourceResult(request));
         }
 
-        public IActionResult GetRoles()
+        [HttpPost]
+        public async Task<IActionResult> EditUserInline([DataSourceRequest] DataSourceRequest request, Tickets model)
         {
-            var allRoles = _roleManager.Roles.Select(r => new { Name = r.Name }).ToList();
-            return Json(allRoles);
+            if (model != null)
+            {
+                var existingTicket = await _applicationDbContext.Tickets.FindAsync(model.Id);
+                existingTicket.Title = model.Title;
+                existingTicket.Description = model.Description;
+                existingTicket.ticketPriority = model.ticketPriority;
+                existingTicket.ticketType = model.ticketType;
+                await _applicationDbContext.SaveChangesAsync();
+
+            }
+
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteAdminInline([DataSourceRequest] DataSourceRequest request, UserGridModel model)
+        {
+
+            if (model != null)
+            {
+                var user = await _userManager.FindByIdAsync(model.Id);
+                if (user == null) { return NotFound(); }
+                await _userManager.DeleteAsync(user);
+
+
+            }
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+
+
+        }
+        [HttpPost]
+        public async Task<ActionResult> UserCreateFromAdmin([DataSourceRequest] DataSourceRequest request, UserGridModel model)
+        {
+
+            if (model != null)
+            {
+                var user = new AppUser { Email = model.Email, UserName = model.UserName };
+                IdentityResult result = await _userManager.CreateAsync(user, "useR123.");
+
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, model.CurrentRole);
+
+
+                }
+            }
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateUserRole([DataSourceRequest] DataSourceRequest request, UserGridModel model)
+        public async Task<ActionResult> EditAdminInline([DataSourceRequest] DataSourceRequest request, Tickets model)
         {
-            try
+
+            if (model != null)
             {
-                Console.WriteLine($"UpdateUserRole called with Id: {model.Id}, CurrentRole: {model.CurrentRole}");
-                
+                var existingTicket = await _applicationDbContext.Tickets.FindAsync(model.Id);
+
+                existingTicket.Title = model.Title;
+                existingTicket.Description = model.Description;
+                existingTicket.ticketPriority = model.ticketPriority;
+                existingTicket.ticketType = model.ticketType;
+                await _applicationDbContext.SaveChangesAsync();
+            }
+
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
+        [HttpPost]
+        public async Task<ActionResult> UpdateUserRole([DataSourceRequest] DataSourceRequest request, UserGridModel model)
+        {
+
+            if (model != null && ModelState.IsValid)
+            {
                 var user = await _userManager.FindByIdAsync(model.Id);
-                if (user != null)
-                {
-                    var currentRole = await _userManager.GetRolesAsync(user);
-                    if (currentRole.Any())
-                    {
-                        await _userManager.RemoveFromRolesAsync(user, currentRole);
-                    }
-                    
-                    if (!string.IsNullOrEmpty(model.CurrentRole))
-                    {
-                        await _userManager.AddToRoleAsync(user, model.CurrentRole);
-                    }
-                    
-                    Console.WriteLine($"User role updated successfully for user: {user.UserName}");
-                    return Json(new { success = true, message = "Rol başarıyla güncellendi" });
-                }
-                
-                Console.WriteLine("User not found");
-                return Json(new { success = false, message = "Kullanıcı bulunamadı" });
+                if (user == null) { return NotFound(); }
+                var currentRole = await _userManager.GetRolesAsync(user);
+                if (currentRole.Any())
+                    await _userManager.RemoveFromRolesAsync(user, currentRole);
+                if (model.CurrentRole != null)
+                    await _userManager.AddToRoleAsync(user, model.CurrentRole);
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                await _applicationDbContext.SaveChangesAsync();
             }
-            catch (Exception ex)
+
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
+
+
+
+        public ActionResult Projects([DataSourceRequest] DataSourceRequest request)
+        {
+            var model = from project in _applicationDbContext.Projects
+                        join user in _applicationDbContext.Users on project.CreatedByUserId equals user.Id
+                        select new
+                        {
+                            Id = project.Id,
+                            Name = project.Name,
+                            Description = project.Description,
+                            CreatedAt = project.CreatedAt,
+                            CreatedByUserId = user.UserName
+                        };
+            return Json(model.ToDataSourceResult(request));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddProject([DataSourceRequest] DataSourceRequest request, Projects model)
+        {
+
+            if (model != null)
             {
-                Console.WriteLine($"Error in UpdateUserRole: {ex.Message}");
-                return Json(new { success = false, message = "Güncelleme sırasında hata oluştu: " + ex.Message });
+                model.CreatedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                model.CreatedAt = DateTime.Now;
+                _applicationDbContext.Projects.Add(model);
+                await _applicationDbContext.SaveChangesAsync();
+
             }
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+
+
+        }
+        [HttpPost]
+        public async Task<ActionResult> UpdateProject([DataSourceRequest] DataSourceRequest request, Projects model)
+        {
+
+            if (model != null)
+            {
+                var existingProject = await _applicationDbContext.Projects.FindAsync(model.Id);
+                if (existingProject == null) { return NotFound(); }
+                existingProject.Name = model.Name;
+                existingProject.Description = model.Description;
+
+
+                await _applicationDbContext.SaveChangesAsync();
+            }
+
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
         
-        
+        [HttpPost]
+        public async Task<ActionResult> DeleteProject([DataSourceRequest] DataSourceRequest request, Projects model)
+        {
+
+            if (model != null)
+            {
+                
+                _applicationDbContext.Projects.Remove(model);
+                
+                await _applicationDbContext.SaveChangesAsync();
+            }
+
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
+
     }
 }
+
+

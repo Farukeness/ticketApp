@@ -12,6 +12,17 @@
         <label class="form-label" asp-for="@Model.Description"></label>
         <input class="form-control" asp-for="@Model.Description" >
     </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.ProjectId"></label>
+        <select class="form-select" asp-for="@Model.ProjectId" >
+            <option value="" disabled selected>Proje Seçiniz</option>
+            @foreach(var opt in ViewBag.Projects){
+                <option value="@opt.Id">@opt.Name</option>
+            }
+        </select>
+    </div>
+
     <div class="mb-3">
         <label class="form-label" asp-for="@Model.ticketType"></label>
         <select class="form-select" asp-for="@Model.ticketType" >
