@@ -1,4 +1,7 @@
 @{
+ViewData["Title"] = "Projeler";
+}
+@{
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
@@ -10,7 +13,7 @@
         column.Bound(c => c.CreatedByUserId).Filterable(f => f.Multi(true).Search(true));
         column.Command(c => {c.Edit(); c.Destroy();});
     })
-    .ToolBar(toolbar => toolbar.Create())
+    .ToolBar(toolbar => {toolbar.Create(); toolbar.Search().Text("Ara");})
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .Pageable()
     .Sortable()

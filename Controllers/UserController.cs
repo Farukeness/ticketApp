@@ -10,6 +10,9 @@ using ticketApp.ViewModel;
 using System.Threading.Tasks;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
+using Microsoft.EntityFrameworkCore;
+using AspNetCoreHero.ToastNotification.Helpers;
+using ticketApp.ViewModels;
 
 namespace ticketApp.Controllers;
 
@@ -27,6 +30,28 @@ public class UserController : Controller
     public IActionResult Index()
     {
         return View();
+    }
+    public IActionResult Deneme(int Id)
+    {
+        var ticket = _applicationDbContext.Tickets.Include(t => t.AssignedToUsers).FirstOrDefault(t => t.Id == Id);
+        var ticket_comments = _applicationDbContext.TicketComments.Where(s => s.TicketId == Id);
+
+        var comments = ticket_comments.Select(s => new CommentViewModel
+            {
+                Id = s.Id,
+                Text = s.CommentText,
+                CommentedAt = s.CommentedAt,
+                CommentedUser = _applicationDbContext.Users.FirstOrDefault(t => t.Id == s.CommentedByUserId).UserName
+
+            }).ToList();
+        var assignedUsersViewModels = ticket.AssignedToUsers
+                                         .Select(u => new SimpleAppUserViewModel
+                                         {
+                                             Id = u.Id,
+                                             UserName = u.UserName
+                                         })
+                                         .ToList();
+        return View(comments);
     }
 
     
@@ -84,21 +109,35 @@ public class UserController : Controller
     }
     
     [HttpGet]
-        public async Task<IActionResult> Detail(int? Id)
+    public async Task<IActionResult> Detail(int? Id)
         {
             if (Id == null) { return NotFound(); }
-            var _ticket = await _applicationDbContext.Tickets.FindAsync(Id);
+            //var _ticket = await _applicationDbContext.Tickets.FindAsync(Id);
             var _ticketComment = _applicationDbContext.TicketComments.Where(t => t.TicketId == Id);
             var _ticketAttachemnts = _applicationDbContext.TicketAttachments.Where(t => t.TicketId == Id);
-            
-            
+            var assignedWihtTicket = _applicationDbContext.Tickets.Include(t => t.AssignedToUsers).FirstOrDefault(t => t.Id == Id);
+            var devnameModel = assignedWihtTicket.AssignedToUsers.Select(s => new SimpleAppUserViewModel
+            {
+                Id = s.Id,
+                UserName = s.UserName
+            });
+            var comments = _ticketComment.Select(s => new CommentViewModel
+            {
+                Id = s.Id,
+                Text = s.CommentText,
+                CommentedAt = s.CommentedAt,
+                CommentedUser = _applicationDbContext.Users.FirstOrDefault(t => t.Id == s.CommentedByUserId).UserName
 
+            }).ToList();
             var model = new TicketDetailViewModel
             {
-                ticket = _ticket,
+                ticket = assignedWihtTicket,
                 ticketComment = _ticketComment,
                 ticketAttachments = _ticketAttachemnts,
-                Usernames = _userManager.Users.ToList()
+                Usernames = _userManager.Users.ToList(),
+                DevNames = devnameModel,
+                Comments = comments
+                
 
             };
             return View(model);

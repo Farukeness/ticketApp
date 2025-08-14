@@ -1,0 +1,16 @@
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using ticketApp.ViewModels
+@model IEnumerable<CommentViewModel>
+@{
+ViewData["Title"] = "Detay";
+}
+@{
+    Layout = "~/Views/Shared/_userLayout.cshtml";
+}
+<h2>Deneme</h2>
+@(Html.Kendo().Grid(Model).Name("denemeKendo")
+.Columns(columns => {columns.Bound(c => c.Text);
+                    
+                    })
+
+)

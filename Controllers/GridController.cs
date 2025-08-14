@@ -11,6 +11,7 @@ using ticketApp.Enums;
 using ticketApp.Models;
 using ticketApp.ViewModel;
 using System.Linq;
+using System.Globalization;
 namespace ticketApp.Controllers
 {
 
@@ -20,7 +21,7 @@ namespace ticketApp.Controllers
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly UserManager<AppUser> _userManager;
         private RoleManager<AppRole> _roleManager;
-
+        TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
 
         public GridController(ApplicationDbContext applicationDbContext, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
@@ -34,8 +35,23 @@ namespace ticketApp.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var TicketList = _applicationDbContext.Tickets.Where(t => t.CreatedByUserId == userId!);
+            var model = from ticket in TicketList
+                        join project in _applicationDbContext.Projects
+                        on ticket.ProjectId equals project.Id
+                        select new
+                        {
+                            Id = ticket.Id,
+                            Title = ticket.Title,
+                            Description = ticket.Description,
+                            ticketType = ticket.ticketType,
+                            ticketPriority = ticket.ticketPriority,
+                            ticketStatus = ticket.ticketStatus,
+                            CreatedAt = ticket.CreatedAt,
+                            ProjectId = ticket.ProjectId,
+                            ProjectName = project.Name
 
-            return Json(TicketList.ToDataSourceResult(request));
+                        };
+            return Json(model.ToDataSourceResult(request));
         }
         public ActionResult Tickets_Read_For_Dev([DataSourceRequest] DataSourceRequest request)
         {
@@ -61,8 +77,27 @@ namespace ticketApp.Controllers
 
         public ActionResult Tickets_All([DataSourceRequest] DataSourceRequest request)
         {
+            var model = _applicationDbContext.Tickets.Join(
+                _applicationDbContext.Projects,
+                ticket => ticket.ProjectId,
+                project => project.Id,
+                (ticket, project) => new
+                {
+                    Id = ticket.Id,
+                    Title = ticket.Title,
+                    Description = ticket.Description,
+                    ticketType = ticket.ticketType,
+                    ticketPriority = ticket.ticketPriority,
+                    ticketStatus = ticket.ticketStatus,
+                    CreatedAt = ticket.CreatedAt,
+                    ProjectName = project.Name,
+                    CreatedByUserId = textInfo.ToTitleCase(_applicationDbContext.Users.FirstOrDefault(t => t.Id == ticket.CreatedByUserId).UserName),
+                    AssignmentControl = ticket.AssignedToUsers.Count == 0 ? "Atama Yok" : "Atanmış"
+                }
+            );
 
-            return Json(_applicationDbContext.Tickets.ToDataSourceResult(request));
+
+            return Json(model.ToDataSourceResult(request));
         }
 
         public async Task<ActionResult> Users([DataSourceRequest] DataSourceRequest request)
@@ -85,7 +120,7 @@ namespace ticketApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUserInline([DataSourceRequest] DataSourceRequest request, Tickets model)
+        public async Task<IActionResult> EditUserInline([DataSourceRequest] DataSourceRequest request, TicketViewModel model)
         {
             if (model != null)
             {
@@ -94,14 +129,56 @@ namespace ticketApp.Controllers
                 existingTicket.Description = model.Description;
                 existingTicket.ticketPriority = model.ticketPriority;
                 existingTicket.ticketType = model.ticketType;
+                existingTicket.ticketStatus = model.ticketStatus;
+                var proje = _applicationDbContext.Projects.Where(c => c.Name == model.ProjectName).FirstOrDefault();
+                if (proje == null) { return NotFound(); }
+                existingTicket.ProjectId = proje.Id;
                 await _applicationDbContext.SaveChangesAsync();
 
             }
 
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
+        [HttpPost]
+
+        public async Task<IActionResult> AddTicket([DataSourceRequest] DataSourceRequest request, TicketViewModel model)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var proje = _applicationDbContext.Projects.Where(c => c.Name == model.ProjectName).FirstOrDefault();
 
 
+            var _ticket = new Tickets
+            {
+                Title = model.Title,
+                Description = model.Description,
+                ticketType = model.ticketType,
+                ticketPriority = model.ticketPriority,
+                ticketStatus = TicketStatus.Acik,
+                CreatedAt = DateTime.Now,
+                CreatedByUserId = userId,
+                ProjectId = proje.Id
+
+            };
+            _applicationDbContext.Tickets.Add(_ticket);
+            await _applicationDbContext.SaveChangesAsync();
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DestroyTicket_Admin([DataSourceRequest] DataSourceRequest request, Tickets model)
+        {
+
+            if (model != null)
+            {
+
+                _applicationDbContext.Tickets.Remove(model);
+
+                await _applicationDbContext.SaveChangesAsync();
+            }
+
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
         [HttpPost]
         public async Task<ActionResult> DeleteAdminInline([DataSourceRequest] DataSourceRequest request, UserGridModel model)
         {
@@ -130,8 +207,10 @@ namespace ticketApp.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.CurrentRole);
-
-
+                }
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Code);
                 }
             }
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
@@ -139,23 +218,23 @@ namespace ticketApp.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<ActionResult> EditAdminInline([DataSourceRequest] DataSourceRequest request, Tickets model)
-        {
+        // [HttpPost]
+        // public async Task<ActionResult> EditAdminInline([DataSourceRequest] DataSourceRequest request, Tickets model)
+        // {
 
-            if (model != null)
-            {
-                var existingTicket = await _applicationDbContext.Tickets.FindAsync(model.Id);
+        //     if (model != null)
+        //     {
+        //         var existingTicket = await _applicationDbContext.Tickets.FindAsync(model.Id);
 
-                existingTicket.Title = model.Title;
-                existingTicket.Description = model.Description;
-                existingTicket.ticketPriority = model.ticketPriority;
-                existingTicket.ticketType = model.ticketType;
-                await _applicationDbContext.SaveChangesAsync();
-            }
+        //         existingTicket.Title = model.Title;
+        //         existingTicket.Description = model.Description;
+        //         existingTicket.ticketPriority = model.ticketPriority;
+        //         existingTicket.ticketType = model.ticketType;
+        //         await _applicationDbContext.SaveChangesAsync();
+        //     }
 
-            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
-        }
+        //     return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        // }
         [HttpPost]
         public async Task<ActionResult> UpdateUserRole([DataSourceRequest] DataSourceRequest request, UserGridModel model)
         {
@@ -181,16 +260,20 @@ namespace ticketApp.Controllers
 
         public ActionResult Projects([DataSourceRequest] DataSourceRequest request)
         {
-            var model = from project in _applicationDbContext.Projects
-                        join user in _applicationDbContext.Users on project.CreatedByUserId equals user.Id
-                        select new
-                        {
-                            Id = project.Id,
-                            Name = project.Name,
-                            Description = project.Description,
-                            CreatedAt = project.CreatedAt,
-                            CreatedByUserId = user.UserName
-                        };
+            var model = _applicationDbContext.Projects.Join(
+                _applicationDbContext.Users,
+                project => project.CreatedByUserId,
+                user => user.Id,
+                (project, user) => new
+                {
+                    Id = project.Id,
+                    Name = project.Name,
+                    Description = project.Description,
+                    CreatedAt = project.CreatedAt,
+                    CreatedByUserId = user.UserName
+                }
+            );
+
             return Json(model.ToDataSourceResult(request));
         }
 
@@ -227,21 +310,84 @@ namespace ticketApp.Controllers
 
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
-        
+
         [HttpPost]
         public async Task<ActionResult> DeleteProject([DataSourceRequest] DataSourceRequest request, Projects model)
         {
 
             if (model != null)
             {
-                
+
                 _applicationDbContext.Projects.Remove(model);
-                
+
                 await _applicationDbContext.SaveChangesAsync();
             }
 
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
+
+        public ActionResult Projects_For_User([DataSourceRequest] DataSourceRequest request)
+        {
+
+            return Json(_applicationDbContext.Projects.ToDataSourceResult(request));
+        }
+        public ActionResult ProjectChart([DataSourceRequest] DataSourceRequest request)
+        {
+            var totalTicket = _applicationDbContext.Tickets.Count();
+
+            var projectData = _applicationDbContext.Projects
+                .GroupJoin(
+                    _applicationDbContext.Tickets,
+                    project => project.Id,
+                    ticket => ticket.ProjectId,
+                    (project, tickets) => new
+                    {
+                        ProjectName = project.Name,
+                        TicketCount = tickets.Count()
+                    }
+                )
+                .Select(p => new ProjectChartView
+                {
+                    ProjeTuru = p.ProjectName,
+                    TicketCount = Math.Round(totalTicket > 0 ? ((double)p.TicketCount / totalTicket) * 100 : 0)
+                })
+                .ToList();
+
+            return Json(projectData);
+        }
+        public async Task<ActionResult> Developers([DataSourceRequest] DataSourceRequest request, int Id)
+        {
+            try
+            {
+                var devName = "Developer";
+                var devList = await _userManager.GetUsersInRoleAsync(devName);
+                var ticket = await _applicationDbContext.Tickets
+                    .Include(t => t.AssignedToUsers)
+                    .FirstOrDefaultAsync(t => t.Id == Id);
+
+                if (ticket == null)
+                {
+                    return Json(new { success = false, message = "Ticket bulunamadı" });
+                }
+
+                var developersWithStatus = devList.Select(dev => new
+                {
+                    id = dev.Id,
+                    UserName = dev.UserName,
+                    isAssigned = ticket.AssignedToUsers.Any(assigned => assigned.Id == dev.Id)
+                }).ToList();
+
+                return Json(developersWithStatus.ToDataSourceResult(request));
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+            
+
+            //return Json(dev.ToDataSourceResult(request));
+        }
+
 
     }
 }

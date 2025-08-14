@@ -5,7 +5,7 @@ namespace ticketApp.ViewModel
     public class CreateUserModel
     {
         [Required]
-        [Display(Name ="İsim")]
+        [Display(Name ="Kullanıcı Adı")]
         public string Name { get; set; } = string.Empty;
         [Required]
         [EmailAddress]

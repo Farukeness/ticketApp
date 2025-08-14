@@ -60,12 +60,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/EditorTemplates/ProjectName.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRvclRlbXBsYXRlc1xQcm9qZWN0TmFtZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/EditorTemplates/RoleDropdown.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRvclRlbXBsYXRlc1xSb2xlRHJvcGRvd24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/EditorTemplates/ticketPriority.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRvclRlbXBsYXRlc1x0aWNrZXRQcmlvcml0eS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/EditorTemplates/ticketStatus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRvclRlbXBsYXRlc1x0aWNrZXRTdGF0dXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Shared/EditorTemplates/ticketType.cshtml]
@@ -94,6 +102,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/Ticket/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/User/deneme.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxkZW5lbWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Faruk Enes Zan/OneDrive/Belgeler/MyProjects/.Net/ticketApp/Views/User/Detail.cshtml]

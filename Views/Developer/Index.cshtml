@@ -1,5 +1,8 @@
 @model IEnumerable<Tickets>
 @{
+ViewData["Title"] = "Biletler";
+}    
+@{
     Layout = "~/Views/Shared/_developerLayout.cshtml";
 }
 
@@ -18,7 +21,7 @@
     .Sortable()
     .Filterable()
     .Scrollable()
-    .Events(events => events.DataBound("onDataBound"))
+    .Events(events => {events.DataBound("onDataBound");})
     .DataSource(dataSource => dataSource
     .Ajax()
     .AutoSync(true)
@@ -63,5 +66,5 @@
         });
     }
 
-toastr.success("sdkfj")
+
 </script>

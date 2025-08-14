@@ -1,19 +1,26 @@
 @model TicketListViewModel
 @{
+ViewData["Title"] = "Biletler";
+}
+@{
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
 
-@(Html.Kendo().Grid<ticketApp.Models.Tickets>().Name("AdminTickets")
+@(Html.Kendo().Grid<ticketApp.ViewModel.TicketViewModel>().Name("AdminTickets")
     .Columns(columns => {
         columns.Bound(c => c.Title);
         columns.Bound(c => c.Description);
+        columns.Bound(c => c.ProjectName).EditorTemplateName("ProjectName").Filterable(f => f.Multi(true).Search(true));
         columns.Bound(c => c.ticketType).Filterable(f => f.Multi(true).Search(true));
         columns.Bound(c => c.ticketPriority).Filterable(f => f.Multi(true).Search(true));
-        columns.Bound(c => c.ticketStatus)
+        columns.Bound(c => c.ticketStatus).Filterable(f => f.Multi(true).Search(true))
         .ClientTemplate("<span id='badge_#=ticketStatus#' class='badgeTemplate' ></span>");
         columns.Bound(c => c.CreatedAt).Format("{0:dd//MM/yyyy HH:mm}");
-        columns.Command(command => { command.Edit(); }).Width(200);
+        columns.Bound(c => c.CreatedByUserId).Filterable(f => f.Multi(true).Search(true));
+        columns.Bound(c => c.AssignmentControl).Filterable(f => f.Multi(true).Search(true));
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+
         columns.Template("<button type='button' class='btn btn-primary' onclick='openModal(#=Id#)'>Geliştirici Ata</button>").Title("Geliştirici").HtmlAttributes(new {style ="color:white"});
     })
     .Editable(editable => editable.Mode(GridEditMode.InLine))
@@ -22,24 +29,28 @@
     .Navigatable()
     .Filterable()
     .Scrollable()
-    .Events(events => events.DataBound("onDataBound"))
+    .Events(events => {events.DataBound("onDataBound"); events.Cancel("onGridCancel");})
     .DataSource(dataSource => dataSource
     .Ajax()
+    .Events(events => events.RequestEnd("onRequestEnd"))
     .Model(model => {
         model.Id(p => p.Id);
         model.Field(p => p.CreatedAt).Editable(false);
-        model.Field(p => p.ticketStatus).Editable(false);
+        model.Field(p => p.ticketStatus).Editable(true);
+        model.Field(p => p.CreatedByUserId).Editable(false);
+        model.Field(p => p.AssignmentControl).Editable(false);
     })
-    .Update(update => update.Action("EditAdminInline", "Grid"))
+    .Update(update => update.Action("EditUserInline", "Grid"))
     .Read(read => read.Action("Tickets_All","Grid"))
+    .Destroy(destroy => destroy.Action("DestroyTicket_Admin","Grid"))
     .Sort(s => s.Add(p => p.CreatedAt).Descending())
     ))
 
 
 
 <div class="modal fade "  tabindex="-1" id="myModal" aria-hidden="true" data-bs-backdrop="static" >
-    <div class="modal-dialog modal-dialog-scrollable">
-        <form asp-action="EditAssigned"  method="post">
+    <div class="modal-dialog modal-xl">
+        <form asp-action="EditAssigned"  method="post" onsubmit="return handleFormSubmit(this);">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" >Geliştiriciler</h5>
@@ -47,6 +58,24 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" id="ticketId" name="Id" value="">
+               
+                @(Html.Kendo().Grid<ModalView>().Name("ModalGrid")
+                    .Pageable()
+                    .Scrollable()
+                    .Columns(column => {
+                    column.Select().Width(75).HtmlAttributes(new { @class="checkbox-align"}).HeaderHtmlAttributes(new { @class = "checkbox-align" });
+                    column.Bound(c => c.UserName).Title("Geliştiriciler");
+                    
+                    } )
+                    .ToolBar(toolbar => toolbar.Search())
+                    .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Read(read => read.Action("Developers","Grid").Data("getReadParameters"))
+                    .Sort(s => s.Add(p => p.UserName)))
+                    .AutoBind(false)
+                    .Events(events => events.DataBound("onDataBound2"))
+                    
+                    )
                 <div id="developersList">
                     
                 </div>
@@ -80,44 +109,60 @@ function openModal(ticketId) {
     document.getElementById('ticketId').value = ticketId;
     var modal = new bootstrap.Modal(document.getElementById('myModal'));
     modal.show();
-    loadDevelopers(ticketId);
+    var grid = $("#ModalGrid").data("kendoGrid")
+    if (grid){
+        grid.dataSource.read({Id: ticketId})
+    }
+}
+function handleFormSubmit(form) {
+    var grid = $("#ModalGrid").data("kendoGrid");
+    var selectedIds = [];
+    $(form).find('input[name="AssignedToUsers"]').remove();
+
+    var selectedRows = grid.select();
+
+    selectedRows.each(function () {
+        var dataItem = grid.dataItem(this);
+        selectedIds.push(dataItem.id);
+    });
+    selectedIds.forEach(function(id) {
+        var hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'AssignedToUsers'; 
+        hiddenInput.value = id;
+        form.appendChild(hiddenInput);
+    });
+    return true;
+}
+function getReadParameters() {
+    var ticketId = document.getElementById('ticketId').value;
+    return {
+        Id: ticketId
+    };
+}
+function onGridCancel(e) {
+    var grid = this;
+    grid.refresh()
 }
 
-function loadDevelopers(ticketId) {
-    fetch('/Admin/TicketEdit/' + ticketId)
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            var developersList = document.getElementById('developersList');
-            developersList.innerHTML = '';
+function onDataBound2(e) {
+    var grid = this;
+    grid.clearSelection();
+    grid.tbody.find("tr").each(function() {
+        var dataItem = grid.dataItem(this);
+        var row = $(this);
+        var checkbox = row.find(".k-checkbox");
+
+        if (dataItem.isAssigned) {
+            checkbox.prop("checked", true);
             
-            data.developers.forEach(function(developer) {
-                var checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.name = 'AssignedToUsers';
-                checkbox.value = developer.id;
-                checkbox.id = 'AssignedToUsers_' + developer.id;
-                if (developer.isAssigned) {
-                    checkbox.checked = true;
-                }
-                
-                var label = document.createElement('label');
-                label.htmlFor = 'AssignedToUsers_' + developer.id;
-                label.textContent = developer.userName;
-                label.style.marginLeft = '10px';
-                
-                var br = document.createElement('br');
-                
-                developersList.appendChild(checkbox);
-                developersList.appendChild(label);
-                developersList.appendChild(br);
-            });
+         
+            grid.select(row);
+            
+            row.addClass("k-state-selected");
         } else {
-            console.error('Geliştiriciler yüklenemedi:', data.message);
+            checkbox.prop("checked", false);
         }
-    })
-    .catch(error => {
-        console.error('Geliştiriciler yüklenirken hata:', error);
     });
 }
 
@@ -128,11 +173,7 @@ function onDataBound(e) {
             var themeColor = dataItem.ticketStatus ? 'error' : 'success';
             var text = dataItem.ticketStatus ? 'Kapalı' : 'Açık';
 
-            $(this).find('script').each(function () {
-                eval($(this).html());
-            });
-
-                    $(this).find(".badgeTemplate").kendoBadge({
+            $(this).find(".badgeTemplate").kendoBadge({
             themeColor: themeColor,
             text: text,
             cssClass: "large-badge"
@@ -142,4 +183,12 @@ function onDataBound(e) {
             kendo.bind($(this), dataItem);
         });
     }
+function onRequestEnd(e) {
+    if (e.type === "update" && e.response) {
+        toastr.success("Başarıyla güncellendi!");
+    }
+    if (e.type === "create" && e.response) {
+        toastr.success("Başarıyla Eklendi!");
+    }
+}
 </script>

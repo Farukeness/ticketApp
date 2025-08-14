@@ -1,5 +1,8 @@
 @model TicketDetailViewModel
 @{
+ViewData["Title"] = "Detay";
+}
+@{
     Layout = "~/Views/Shared/_developerLayout.cshtml";
 }
 <h2>Bilet Detayı</h2>
@@ -14,6 +17,8 @@
         <p><strong>Öncelik:</strong> @Model.ticket.ticketPriority</p>
         <p><strong>Durum:@Model.ticket.ticketStatus</strong></p>
         <p><strong>Oluşturulma Tarihi:</strong> @Model.ticket.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+        @{var adduser = Model.Usernames.Where(c => c.Id == Model.ticket.CreatedByUserId).FirstOrDefault();}
+        <p><strong>Ekleyen:</strong> @adduser.UserName</p>
         <form asp-action="Detail" method="post">
             <select name="ticketStatus" id="ticketStatus">
                 <option value="" disabled selected>Durum:@Model.ticket.ticketStatus</option>
@@ -24,6 +29,7 @@
             </select>
             <input type="hidden" name="Id" value="@Model.ticket.Id" />
             <button type="submit" class="btn btn-primary btn-sm">Güncelle</button>
+            
         </form>
     </div>
 </div>
@@ -84,3 +90,8 @@ else
     <p class="text-muted">Dosya eklenmemiş.</p>
 }
 
+<script>
+    @if (TempData["statusChange"]!=null){
+        <text>toastr.success("@TempData["statusChange"]");</text>
+    }
+</script>

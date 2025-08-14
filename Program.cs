@@ -11,11 +11,14 @@ builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        
     });
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<AppUser, AppRole>()
+builder.Services.AddIdentity<AppUser, AppRole>(
+    options => { options.User.RequireUniqueEmail = true; }
+)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.ConfigureApplicationCookie(options =>
 {

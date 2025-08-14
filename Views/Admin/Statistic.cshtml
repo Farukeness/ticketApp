@@ -1,5 +1,8 @@
 @model StatusChartView
 @{
+ViewData["Title"] = "İstatistikler";
+}
+@{
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
@@ -7,16 +10,41 @@
 <hr>
 
 <div class="row">
-    <div class="col-8">
+    <div class="col-5">
     
-<div class="demo-section wide" >
+    <h4 style="text-align: center;" >Proje Bazlı Ticket Grafiği</h4><br>
+    
+   @(Html.Kendo().Chart<ProjectChartView>()
+            .Name("donut-chart")
+            .ChartArea(chartArea => chartArea
+                .Background("transparent"))
+                
+            .Legend(legend => legend.Visible(true).Position(ChartLegendPosition.Bottom))
+            .SeriesDefaults(series => series.Donut().StartAngle(300))
+            .DataSource(ds => ds
+                .Read(read => read.Action("ProjectChart", "Grid")))
+            .Series(series =>
+             {
+                series.Donut(model => model.TicketCount, model => model.ProjeTuru)
+                    .Padding(50)
+                    .Labels(labels => labels
+                        .Visible(true)
+                        .Position(ChartPieLabelsPosition.OutsideEnd)
+                        .Template("#= category  #: \n #= value#%")
+                        .Background("transparent"));
+            })
+            
+            
+        )
+
+
+    </div>
+<div style="text-align: center;" class="col-5">
+    
+    <h4 >Ticket Durum Grafiği</h4>
     @(Html.Kendo().Chart()
         .Name("chart")
-                .Title(title => title
-                    .Text("Ticket Durumları Grafiği")
-                    .Position(ChartTitlePosition.Bottom))
-        .Legend(legend => legend
-            .Visible(false)
+        .Legend(legend => legend.Visible(true).Position(ChartLegendPosition.Bottom)
         )
         .ChartArea(chart => chart
             .Background("transparent")
@@ -43,13 +71,13 @@
     )
 
 
-</div>
+
     </div>
-    <div class="col-4">
-       
-        <p>Toplam Ticket Sayısı:@Model.TotalTicket</p>
-        <p>Çözülen Ticket Sayısı:@Model.CloseTicket</p>
-        <p>Bekleyen Ticket Sayısı:@Model.OpenTicket</p>
+    <div style="text-align: center;" class="col-2">
+       <h4>Ticket Durum İstatistikleri</h4>
+        <p><strong>Toplam Ticket Sayısı: </strong>@Model.TotalTicket</p>
+        <p><strong>Çözülen Ticket Sayısı</strong>:@Model.CloseTicket</p>
+        <p><strong>Bekleyen Ticket Sayısı</strong>:@Model.OpenTicket</p>
     </div>
 </div>
 

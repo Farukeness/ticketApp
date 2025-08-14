@@ -1,5 +1,8 @@
 @model TicketDetailViewModel
 @{
+ViewData["Title"] = "Detay";
+}
+@{
     Layout = "~/Views/Shared/_userLayout.cshtml";
 }
 <h2>Ticket Detayı</h2>
@@ -14,6 +17,21 @@
         <p><strong>Öncelik:</strong> @Model.ticket.ticketPriority</p>
         <p><strong>Durum:</strong>@Model.ticket.ticketStatus</p>
         <p><strong>Oluşturulma Tarihi:</strong> @Model.ticket.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+        @if(Model.ticket.AssignedToUsers.Any()){
+            @* @foreach(var i in Model.ticket.AssignedToUsers){
+                <p><strong>Geliştirici: </strong>@i.UserName</p>
+            } *@
+            @(Html.Kendo().Grid(Model.DevNames).Name("DevNames")
+                .Columns(column => {
+                    column.Bound(c => c.UserName).Title("Atanan Geliştiriciler");
+                })
+                )
+            
+        }
+        else{
+            <p><strong>Henüz Geliştirici Ataması Yapılmadı</strong></p>
+        }
+        
     </div>
 </div>
 
@@ -21,7 +39,7 @@
 @if (Model.ticketComment.Any())
 {
     <ul class="list-group mb-4">
-        @foreach (var comment in Model.ticketComment)
+        @* @foreach (var comment in Model.ticketComment)
         {
             <li class="list-group-item">
                 <strong>@comment.AppUser</strong> - @comment.CommentedAt.ToString("dd.MM.yyyy HH:mm")<br />
@@ -35,7 +53,12 @@
                     }
                 }
             </li>
-        }
+        } *@
+        @(Html.Kendo().Grid(Model.Comments).Name("CommentGrid").Columns(column => {
+            column.Bound(c => c.Text).Title("Yorum");
+            column.Bound(c => c.CommentedUser).Title("Ekleyen");
+            column.Bound(c => c.CommentedAt).Title("Eklenme Tarihi").Format("{0:dd/MM/yyyy HH:mm}");
+        }))
     </ul>
 }
 else

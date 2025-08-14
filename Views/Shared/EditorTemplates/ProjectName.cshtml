@@ -1,0 +1,11 @@
+@model string 
+
+
+@(Html.Kendo().DropDownListFor(m => m)
+    .DataTextField("Name")
+    .DataValueField("Name")
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Read(read => read.Action("Projects_For_User","Grid")))
+    .HtmlAttributes(new { style = "width:100%" })
+)

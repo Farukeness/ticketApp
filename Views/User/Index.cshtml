@@ -8,19 +8,21 @@ ViewData["Title"] = "Tickets";
 
 
 <section class="jumbotron text-center">
-@(Html.Kendo().Grid<ticketApp.Models.Tickets>().Name("TicketsGrid").Columns(columns => {
+@(Html.Kendo().Grid<ticketApp.ViewModel.TicketViewModel>().Name("TicketsGrid").Columns(columns => {
     columns.Bound(c => c.Id).Hidden();
     columns.Bound(c => c.Title);
     
     columns.Bound(c => c.Description);
+    columns.Bound(c => c.ProjectName).EditorTemplateName("ProjectName").Filterable(f => f.Multi(true).Search(true));
     columns.Bound(c => c.ticketType).Filterable(f => f.Multi(true).Search(true));
     columns.Bound(c => c.ticketPriority).EditorTemplateName("ticketPriority").Filterable(f => f.Multi(true).Search(true));
-    columns.Bound(c => c.ticketStatus).ClientTemplate("<span id='badge_#=ticketStatus#' class='badgeTemplate' ></span>");
+    columns.Bound(c => c.ticketStatus).Filterable(f => f.Multi(true).Search(true)).ClientTemplate("<span id='badge_#=ticketStatus#' class='badgeTemplate' ></span>");
     columns.Bound(c => c.CreatedAt).Format("{0:dd/MM/yyyy HH:mm}");
     columns.Template("<a style='width:120px;' class='btn btn-primary' href='User/Detail/#=Id#' >Detay</a>").HtmlAttributes(new {style = "color:white"});
     columns.Command(command => { command.Edit();}).Width(200);
     })
     .Editable(editable => editable.Mode(GridEditMode.InLine).ConfirmDelete("Bu kaydı silmek istiyor musunuz?").DisplayDeleteConfirmation("Bu kaydı silmek istiyor musunuz?"))
+    .ToolBar(toolbar => toolbar.Create())
     .Pageable()
     .Sortable()
     .Filterable()
@@ -28,7 +30,7 @@ ViewData["Title"] = "Tickets";
     .Filterable()
     .Scrollable()
     .Events(events => 
-        events.DataBound("onDataBound"))
+        {events.DataBound("onDataBound"); events.Cancel("onGridCancel"); })
     .DataSource(dataSource => dataSource
     .Ajax()
     .Events(events => events.RequestEnd("onRequestEnd"))
@@ -39,6 +41,7 @@ ViewData["Title"] = "Tickets";
     })
     .Update(update => update.Action("EditUserInline", "Grid"))
     .Read(read => read.Action("Tickets_Read","Grid"))
+    .Create(creat => creat.Action("AddTicket","Grid"))
     .Sort(s => s.Add(p => p.CreatedAt).Descending())
     ))
 </section>
@@ -85,6 +88,12 @@ function onRequestEnd(e) {
     if (e.type === "update" && e.response) {
         toastr.success("Başarıyla güncellendi!");
     }
-    
+    if (e.type === "create" && e.response) {
+        toastr.success("Başarıyla Eklendi!");
+    }
+}
+function onGridCancel(e) {
+    var grid = this;
+    grid.refresh()
 }
 </script>

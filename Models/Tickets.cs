@@ -32,7 +32,7 @@ namespace ticketApp.Models
         [Display(Name ="Atanan Geliştiriciler")]
 
         public ICollection<AppUser> AssignedToUsers { get; set; } = new List<AppUser>(); 
-
+        [Required]
         [Display(Name ="Proje Türü")]
         public int ProjectId { get; set; }
 

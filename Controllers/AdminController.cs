@@ -56,7 +56,7 @@ namespace ticketApp.Controllers
                 var developersWithStatus = devList.Select(dev => new
                 {
                     id = dev.Id,
-                    userName = dev.UserName,
+                    UserName = dev.UserName,
                     isAssigned = ticket.AssignedToUsers.Any(assigned => assigned.Id == dev.Id)
                 }).ToList();
 
@@ -119,38 +119,22 @@ namespace ticketApp.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> EditAssigned(
-        [Bind("Id,ticketStatus")] Tickets tickets, 
+        public async Task<IActionResult> EditAssigned(Tickets tickets, 
         [FromForm(Name = "AssignedToUsers")] List<string> selectedDeveloperIds)
         
         {
             var existingTicket =  _applicationDbContext.Tickets.Include(t => t.AssignedToUsers)
                                                                 .FirstOrDefault(t => t.Id == tickets.Id);
             if(existingTicket == null){ return NotFound(); }
-            existingTicket.AssignedToUsers = tickets.AssignedToUsers;
-            existingTicket.ticketStatus = tickets.ticketStatus;
-            //_applicationDbContext.Tickets.Update(existingTicket);
-            var currentAssignedDevIds = new HashSet<string>(existingTicket.AssignedToUsers.Select(u => u.Id));
-            var formSelectedDevIds = new HashSet<string>(selectedDeveloperIds ?? new List<string>());
-            var developersToRemove = existingTicket.AssignedToUsers
-                                                .Where(u => !formSelectedDevIds.Contains(u.Id))
-                                                .ToList();
-
-            foreach (var dev in developersToRemove)
+            existingTicket.AssignedToUsers.Clear();
+            foreach (var devId in selectedDeveloperIds)
             {
-                existingTicket.AssignedToUsers.Remove(dev); 
-            }
-            var developerIdsToAdd = formSelectedDevIds
-                                        .Where(id => !currentAssignedDevIds.Contains(id))
-                                        .ToList();
-
-            foreach (var devId in developerIdsToAdd)
-            {
-                var developerToAdd = await _applicationDbContext.Users.FindAsync(devId);
-                if (developerToAdd != null)
+                var devToAdd = await _userManager.FindByIdAsync(devId);
+                if (devToAdd != null)
                 {
-                    existingTicket.AssignedToUsers.Add(developerToAdd);
+                    existingTicket.AssignedToUsers.Add(devToAdd);
                 }
+                
             }
             if (_applicationDbContext == null) { return NotFound(); }
             await   _applicationDbContext.SaveChangesAsync();

@@ -29,9 +29,11 @@ namespace ticketApp.Controllers
         }
 
         [HttpPost]
+        
         public async Task<IActionResult> Create(Tickets model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
             if (ModelState.IsValid)
             {
                 var _ticket = new Tickets

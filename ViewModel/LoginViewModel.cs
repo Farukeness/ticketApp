@@ -4,7 +4,7 @@ public class LoginViewModel
 {
     [Required]
     [EmailAddress]
-    [Display(Name ="Kullanıcı İsmi")]
+    [Display(Name ="E-posta")]
     public string Email { get; set; } = string.Empty;
 
     [Required]

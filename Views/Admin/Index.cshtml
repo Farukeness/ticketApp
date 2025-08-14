@@ -1,16 +1,19 @@
 @{
+ViewData["Title"] = "Kullanıcılar";
+}
+@{
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
 @(Html.Kendo().Grid<ticketApp.ViewModel.UserGridModel>().Name("UserGrid")
     
     .Columns(columns => {
-        columns.Bound(c => c.UserName).Title("İsim");
+        columns.Bound(c => c.UserName).Title("Kullanıcı Adı");
         columns.Bound(c => c.Email).Title("E Posta").Width(120);
         columns.Bound(c => c.CurrentRole).Title("Rol").EditorTemplateName("RoleDropdown").Width(300).Filterable(f => f.Multi(true).Search(true));
         columns.Command(c => {c.Edit(); c.Destroy();});               
     })
-    .ToolBar(toolbar => toolbar.Create())
+    .ToolBar(toolbar => {toolbar.Create(); toolbar.Search().Text("Ara");})
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .Pageable()
     .Sortable()
@@ -31,19 +34,47 @@
     .Read(read => read.Action("Users","Grid"))
     .Update(update => update.Action("UpdateUserRole","Grid"))
     .Create(create => create.Action("UserCreateFromAdmin","Grid"))
-    .Events(events => events.RequestEnd("onRequestEnd"))
+    .Events(events => {events.RequestEnd("onRequestEnd"); events.Error("onGridError");})
+    .Sort(a => a.Add(p => p.UserName))
     )
     )
 
 <script>
 function onRequestEnd(e) {
-    if (e.type === "update" && e.response) {
-        toastr.success("Başarıyla güncellendi!");
-    }
+    if (e.response && !e.response.Errors) {
+        if (e.type === "update" ){
+        toastr.success("Başarıyla güncellendi!");}
 
-
-    if (e.type === "create" && e.response) {
+        if (e.type === "create") {
         toastr.success("Başarıyla Eklendi");
+        }
+    }    
+}
+
+function onGridError(e){
+    var grid = this;
+    if (e.errors){
+        for (let error in e.errors)
+        {
+            let errorMessage = e.errors[error].errors[0];
+            if (errorMessage == "InvalidUserName")
+            {
+                toastr.error("Kullanıcı adınızda türkçe karakter olmamalıdır")
+            }
+            else if (errorMessage == "DuplicateUserName")
+            {
+                toastr.error("Kullanıcı adı daha önce kullanılmış")
+            }
+            else if (errorMessage == "DuplicateEmail")
+            {
+                toastr.error("E-Posta benzersiz olmalı")
+            }
+            else
+            {
+                toastr.error(errorMessage)
+            }
+        }
+        
     }
     
 }

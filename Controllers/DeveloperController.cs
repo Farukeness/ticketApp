@@ -55,6 +55,7 @@ namespace ticketApp.Controllers
             if (existingTicket == null) { return NotFound(); }
             existingTicket.ticketStatus = model.ticketStatus;
             await _applicationDbContext.SaveChangesAsync();
+            TempData["statusChange"] = "Durum Değiştirildi";
             return RedirectToAction("Detail", "Developer", model.Id);
         }
         
